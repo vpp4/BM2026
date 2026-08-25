@@ -9,6 +9,7 @@ def dpath(n): return os.path.join(DATA, n)
 def bpath(n): return os.path.join(BUILD, n)
 def opath(n): return os.path.join(OUT, n)
 import json, html, collections
+HOME=(40.772262,-119.204136)   # default origin; the picker overrides it
 S=json.load(open(bpath('schedule.json')))
 THEMES=['Philosophy','Science','AI & society','Death & grief','Storytelling',
         'Lecture','Culture & land','Climate & tech','Conversation craft','Games for the brain']
@@ -16,6 +17,7 @@ HUE={'Philosophy':228,'Science':190,'AI & society':266,'Death & grief':348,'Stor
      'Lecture':158,'Culture & land':96,'Climate & tech':205,'Conversation craft':310,'Games for the brain':50}
 DAYNAME={'2026-08-30':'Gate Sunday','2026-08-31':'Monday','2026-09-01':'Tuesday','2026-09-02':'Wednesday',
          '2026-09-03':'Thursday','2026-09-04':'Friday','2026-09-05':'Saturday — Burn Night','2026-09-06':'Temple Sunday'}
+GEO=json.load(open(bpath('geo.json')))
 def esc(s): return html.escape(s or '')
 def hm(h): return f'{int(h):02d}:{int(round((h%1)*60)):02d}'
 
@@ -52,14 +54,15 @@ for d,evs in days.items():
         walk = f'{e["walk"]} min walk' if e['walk'] is not None else 'walk n/a'
         oneshot = '<span class="flag oneshot" title="This is the only time it runs all week">only showing</span>' if e['n_occ']==1 else ''
         clashf  = '<span class="flag clash" title="Starts before the previous listing ends">overlaps</span>' if clash else ''
-        cards.append(f'''<li class="ev" data-theme-name="{esc(e['theme'])}" data-walk="{e['walk'] if e['walk'] is not None else 99}" data-clash="{1 if clash else 0}">
+        pt=f'''data-lat="{e['lat']}" data-lng="{e['lng']}"''' if e.get('lat') else ''
+        cards.append(f'''<li class="ev" data-theme-name="{esc(e['theme'])}" data-walk="{e['walk'] if e['walk'] is not None else 99}" data-clash="{1 if clash else 0}" {pt}>
  <div class="when"><b>{esc(e['start'])}</b><span>{esc(e['end'])}</span></div>
  <div class="body">
   <p class="ttl">{esc(e['title'])}</p>
   <p class="dsc">{esc(e['desc'])}</p>
   <p class="meta"><span class="chip" style="--h:{HUE[e['theme']]}">{esc(e['theme'])}</span>
    <span class="loc">{esc(e['loc']) or 'location TBD'}</span>
-   <span class="walk">{walk}</span>
+   <span class="walk" data-walk-cell>{walk}</span>
    {oneshot}{clashf}
    <span class="host">{esc(e['host']) or 'Burning Man org'}</span></p>
  </div></li>''')
@@ -133,6 +136,9 @@ h1 em{font-style:normal;color:var(--accent);display:block}
 .walkctl{display:flex;gap:9px;align-items:center;font-size:12px;color:var(--muted);
  margin-left:auto;text-transform:uppercase;letter-spacing:.07em}
 .walkctl input{width:130px;accent-color:var(--accent)}
+.walkctl select{font:inherit;font-size:12px;padding:2px 5px;background:var(--surface);
+ border:1px solid var(--line2);color:var(--ink);border-radius:2px;letter-spacing:0;
+ text-transform:none;font-family:"SF Mono",ui-monospace,Menlo,monospace;margin-left:4px}
 .walkctl output{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
 
 .day{margin-top:38px;scroll-margin-top:130px}
@@ -195,8 +201,38 @@ function apply(){
     d.classList.toggle('empty', ![...d.querySelectorAll('.ev')].some(e=>!e.hidden));
   });
 }
+const GEO=__GEO__;
+const hc=document.getElementById('hc'), hs=document.getElementById('hs');
+const pad=n=>String(n).padStart(2,'0');
+const CLOCKS=[]; for(let m=120;m<=600;m+=15) CLOCKS.push(m);
+hc.innerHTML=CLOCKS.map(m=>`<option value="${m}">${Math.floor(m/60)}:${pad(m%60)}</option>`).join('');
+hs.innerHTML=GEO.streets.filter(s=>GEO.table[s])
+ .map(s=>`<option value="${s}">${s==='ESPLANADE'?'Esplanade':s}</option>`).join('');
+function hav(a,b){const R=6371e3,r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,
+ dp=p2-p1,dl=(b[1]-a[1])*r,h=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;
+ return 2*R*Math.asin(Math.sqrt(h))}
+let HOME=__HOME__;
+function recompute(){
+  const p=(GEO.table[hs.value]||{})[hc.value]; if(!p) return; HOME=p;
+  try{localStorage.setItem('salonAddr',JSON.stringify([hc.value,hs.value]))}catch(e){}
+  evs.forEach(el=>{
+    const la=el.dataset.lat, ln=el.dataset.lng, cell=el.querySelector('[data-walk-cell]');
+    if(la&&ln){ const w=Math.round(hav(HOME,[+la,+ln])/80);
+      el.dataset.walk=w; if(cell) cell.textContent=w+' min walk' }
+    else { el.dataset.walk=99; if(cell) cell.textContent='walk n/a' }
+  });
+  apply();
+}
+try{const a=JSON.parse(localStorage.getItem('salonAddr'));
+    if(a){hc.value=a[0]; hs.value=a[1]}}catch(e){}
+if(!localStorage.getItem('salonAddr')){
+  let bd=1e9;
+  for(const s in GEO.table) for(const m in GEO.table[s]){
+    const d=hav(HOME,GEO.table[s][m]); if(d<bd){bd=d;hc.value=m;hs.value=s}}
+}
+hc.onchange=hs.onchange=recompute;
 chips.forEach(c=>c.addEventListener('click',()=>{c.classList.toggle('on');apply()}));
-slider.addEventListener('input',apply); apply();
+slider.addEventListener('input',apply); recompute();
 '''
 
 doc=f'''<title>Axis Mundi Salon</title>
@@ -220,6 +256,7 @@ doc=f'''<title>Axis Mundi Salon</title>
 <div class="controls">
  <nav class="navdays">{nav}</nav>
  <div class="filters">{chips}
+  <label class="walkctl">your camp <select id="hc"></select><select id="hs"></select></label>
   <label class="walkctl">walk under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
  </div>
 </div>
@@ -237,5 +274,7 @@ Times are the official ones and will drift on playa — treat them as intentions
 </footer>
 </div>
 <script>{JS}</script>'''
+doc=doc.replace('__GEO__', json.dumps(GEO, separators=(',',':')))
+doc=doc.replace('__HOME__', json.dumps([HOME[0], HOME[1]]))
 open(opath('salon.html'),'w',encoding='utf-8').write(doc)
 print('wrote out/salon.html', len(doc),'bytes')

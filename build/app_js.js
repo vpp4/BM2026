@@ -122,10 +122,27 @@ function times(){
 t0.oninput=t1.oninput=times;
 wk.oninput=()=>{st.walk=+wk.value;
  $('wv').textContent = st.walk>=99?'any':st.walk+' min'; reset()};
-hi.value=home.join(', ');
-hi.onchange=()=>{const p=hi.value.split(',').map(Number);
- if(p.length===2&&p.every(n=>isFinite(n))){home=p;SV('home',p);D.ev.forEach(e=>delete e._h);reset()}
- else hi.value=home.join(', ')};
+// address picker — nobody knows their lat/lng, everybody knows "4:00 & E"
+const GEO=D.geo, hc=$('hc'), hs=$('hs');
+const CLOCKS=[]; for(let m=120;m<=600;m+=15) CLOCKS.push(m);
+const cLabel=m=>Math.floor(m/60)+':'+pad(m%60);
+hc.innerHTML=CLOCKS.map(m=>`<option value="${m}">${cLabel(m)}</option>`).join('');
+hs.innerHTML=GEO.streets.filter(s=>GEO.table[s])
+ .map(s=>`<option value="${s}">${s==='ESPLANADE'?'Esplanade':s}</option>`).join('');
+function applyHome(save){
+ const p=(GEO.table[hs.value]||{})[hc.value];
+ if(!p) return;
+ home=p; if(save){SV('home',p); SV('addr',[hc.value,hs.value])}
+ D.ev.forEach(e=>delete e._h); reset();
+}
+const savedAddr=LS('addr');
+if(savedAddr){ hc.value=savedAddr[0]; hs.value=savedAddr[1] }
+else{ // start on whatever address is closest to the built-in default
+ let bd=1e9;
+ for(const s in GEO.table) for(const m in GEO.table[s]){
+   const d=hav(home,GEO.table[s][m]); if(d<bd){bd=d;hc.value=m;hs.value=s}}
+}
+hc.onchange=hs.onchange=()=>applyHome(true);
 
 function badge(){
  const n = st.tags.size + TOGS.filter(([,k])=>st[k]).length

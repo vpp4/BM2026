@@ -178,7 +178,8 @@ for x in rsl:
         if known: rec['v'] = 1
         out.append(rec); n_music += 1
 
-data={'days':DAYS,'cats':CATS,'tags':[n for n,_ in TAGS]+['Melodic & organic','Bass & rave'],'ev':out}
+geo=json.load(open(bpath('geo.json')))
+data={'geo':geo,'days':DAYS,'cats':CATS,'tags':[n for n,_ in TAGS]+['Melodic & organic','Bass & rave'],'ev':out}
 
 raw=json.dumps(data,separators=(',',':'),ensure_ascii=False)
 open(bpath('payload.json'),'w',encoding='utf-8').write(raw)
