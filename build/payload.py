@@ -60,12 +60,20 @@ MEAL_CATS = ('Food','Beverages','Other')
 # Neither of these exists anywhere in Dust: no category, no map layer, nothing
 # in 235 source files. They live only in prose camps wrote about themselves,
 # so these read the HOST CAMP description, not the event text.
-SHOWER = re.compile(r'\bshower|bath ?house|banya|laznia|\bsauna\b|steam ?(bath|room|sauna)|'
- r'hot tub|soak(ing)? tub|carcass wash|foam (blast|party)|rinse|misting station|'
- r'wash station|body wash|bathe|bathing|l\u00f6yly', re.I)
-# member-only infrastructure, not a gift — never tag these
+# \bsteam\b, not 'steam bath' — Illumination Village's actual event is called
+# "The Steam Sanctuary". The word boundary keeps 'Hot Steamy Bao' (food) out.
+# Dropped from this net on purpose: 'body wash', 'rinse', 'misting station',
+# 'bathe' — they matched erotic-massage camps and misters, not places to wash.
+SHOWER = re.compile(r'\bshower|bath ?house|banya|laznia|\bsauna\b|\bsteam\b|'
+ r'hot tub|soak(ing)? tub|carcass wash|\bfoam\b|l\u00f6yly', re.I)
+# member-only infrastructure, not a gift — checked against the CAMP description
 SHOWER_NOT = re.compile(r'camp showers|shared showers|meal plans|kitchen shifts|'
  r'everyone is expected|not the spot for you', re.I)
+# checked against the EVENT text. Two distinct misreads:
+#   "please be clean and showered" — a prerequisite, not an offering
+#   "Dream Steam Espresso Machine" — steam as in milk, not sauna
+SHOWER_NOT_EVENT = re.compile(r'be (clean and )?showered|come showered|already showered|'
+ r'must (be )?shower|please shower|espresso|coffee (bar|machine)|latte|steam(ed)? milk', re.I)
 BEAUTY = re.compile(r'\bsalon\b|hair ?(cut|do|styl|dress)|barber|\bshave|beard trim|'
  r'nail|manicure|pedicure|makeup|make.?up|face ?paint|body ?paint|glitter|'
  r'\bspa\b|massage|facial|grooming|styling|wardrobe|costum(e|ing)|dress ?up|'
@@ -151,11 +159,13 @@ for e in ev:
     if e.get('title') in picks: rec['s']=1
     lab=e['event_type']['label']
     if lab in MEAL_CATS and MEALS.search(blob): rec['g']=rec['g']+[MEAL_TAG]
-    # host-camp text is the only place these are described
-    hostblob = ' '.join(filter(None,[e.get('title'), e.get('description'), hdesc]))
-    if SHOWER.search(hostblob) and not SHOWER_NOT.search(hdesc):
+    # Judge the EVENT, never the host camp. Reading the camp description tagged
+    # all 24 of Nobo House's events -- including its outdoor gym and sunset DJ
+    # sets -- because the camp happens to have a sauna. 47 of 66 shower tags and
+    # 248 of 373 beauty tags were that same false positive.
+    if SHOWER.search(blob) and not SHOWER_NOT.search(hdesc) and not SHOWER_NOT_EVENT.search(blob):
         rec['g']=rec['g']+[SHOWER_TAG]
-    if BEAUTY.search(hostblob): rec['g']=rec['g']+[BEAUTY_TAG]
+    if BEAUTY.search(blob): rec['g']=rec['g']+[BEAUTY_TAG]
     woo = bool(WOO.search(blob))
     if e.get('title') in VERIFIED: rec['v']=1
     if woo: rec['w']=1

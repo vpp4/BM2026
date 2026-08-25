@@ -116,9 +116,19 @@ not just the event text.
 - **Real meals** — Dust's Food+Beverages holds 560 events; 125 are edible. Eight
   actual meals are filed under Beverages (Bloody Mary Breakfast, Champagne &
   Donuts), so both categories are read rather than trusting the camp's filing.
-- **Showers & steam** — mostly steam, sauna and foam; greywater rules make real
-  showers rare as a gift. `SHOWER_NOT` excludes camps describing *member*
-  infrastructure: Wrongtown and Stag Camp both say "camp showers" and mean
-  their own crew, not you.
-- **Beauty & grooming** — a deliberately wide net (massage, salon, nails, paint,
-  glitter, costume). 373 events; treat it as a browse aid, not a shortlist.
+- **Showers & steam** (20) — mostly steam, sauna and foam; greywater rules make
+  real showers rare as a gift. Three separate filters were needed:
+  - `SHOWER_NOT` (vs the **camp** text) drops member-only infrastructure —
+    Wrongtown and Stag Camp both say "camp showers" and mean their own crew.
+  - `SHOWER_NOT_EVENT` (vs the **event** text) drops two different misreads:
+    "please be clean and showered" is a prerequisite, not an offering, and
+    "Dream Steam Espresso Machine" is steamed milk.
+  - `\bsteam\b`, not `steam bath` — Illumination Village's event is called
+    "The Steam Sanctuary". The boundary keeps "Hot Steamy Bao" (food) out.
+- **Beauty & grooming** (125) — a wide net (massage, salon, nails, paint,
+  glitter, costume). A browse aid, not a shortlist.
+
+**These tags read the EVENT, never the host camp.** An earlier version matched
+the camp description, which tagged all 24 of Nobo House's events — outdoor gym
+and sunset DJ sets included — because the camp happens to have a sauna. That
+was 47 of 66 shower tags and 248 of 373 beauty tags.
