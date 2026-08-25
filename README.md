@@ -18,8 +18,9 @@ Source: the [Dust](https://github.com/damiant/dust) app's public API. No auth.
 with one exception: `bm_rsl.json`, the DJ lineup, is gitignored because it is
 pre-release (production still returns `[]`). Run `fetch.py` to pull it.
 
-`out/` is gitignored too: `playabrain.html` inlines that same lineup. Rebuild
-both pages in one command, see the pipeline below.
+`out/` is committed — the built pages are the point of the repo. Download
+`out/playabrain.html` and open it in any browser; that single file is the whole
+tool, offline, no clone or Python required.
 
 ## Pipeline
 

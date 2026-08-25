@@ -1,0 +1,1853 @@
+<title>Axis Mundi Salon</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{
+ --ground:#E6E6E1; --surface:#F4F4F0; --raise:#FBFBF8;
+ --ink:#16181B; --ink2:#3D4247; --muted:#6C7176; --line:#D2D2CA; --line2:#BFBFB5;
+ --accent:#1E42C0; --accent-ink:#fff; --chipL:92%; --chipS:38%; --chipT:26%;
+ --barfill:#1E42C0; --bartrack:#D2D2CA;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+ --ground:#0F1115; --surface:#171A1F; --raise:#1E2229;
+ --ink:#E9EBED; --ink2:#BEC4CA; --muted:#8D949B; --line:#282D34; --line2:#3A414A;
+ --accent:#7C99FF; --accent-ink:#0F1115; --chipL:22%; --chipS:42%; --chipT:78%;
+ --barfill:#7C99FF; --bartrack:#282D34; }}
+:root[data-theme="dark"]{
+ --ground:#0F1115; --surface:#171A1F; --raise:#1E2229;
+ --ink:#E9EBED; --ink2:#BEC4CA; --muted:#8D949B; --line:#282D34; --line2:#3A414A;
+ --accent:#7C99FF; --accent-ink:#0F1115; --chipL:22%; --chipS:42%; --chipT:78%;
+ --barfill:#7C99FF; --bartrack:#282D34; }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+ font-family:Charter,"Iowan Old Style",Palatino,Georgia,serif;
+ font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.cond{font-family:"Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",system-ui,sans-serif}
+.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+
+header.top{padding:52px 0 26px;border-bottom:2px solid var(--ink)}
+h1{font-family:"Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",system-ui,sans-serif;
+ font-weight:700;font-size:clamp(38px,7vw,68px);line-height:.94;letter-spacing:-.015em;
+ margin:0 0 10px;text-wrap:balance;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent);display:block}
+.sub{margin:0;max-width:64ch;color:var(--ink2);font-size:17px}
+.facts{display:flex;flex-wrap:wrap;gap:0;margin:24px 0 0;border-top:1px solid var(--line)}
+.facts div{flex:1 1 130px;padding:12px 16px 12px 0;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.facts span{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+
+.controls{position:sticky;top:0;z-index:20;background:var(--ground);
+ border-bottom:1px solid var(--line);padding:12px 0 12px;margin-bottom:8px}
+.navdays{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.navdays a{text-decoration:none;color:var(--ink2);border:1px solid var(--line2);
+ padding:4px 9px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+ display:flex;gap:6px;align-items:baseline;border-radius:2px}
+.navdays a:hover,.navdays a:focus-visible{border-color:var(--accent);color:var(--accent)}
+.navdays a b{font-variant-numeric:tabular-nums;font-size:11px;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.fchip{cursor:pointer;font:inherit;font-size:12px;padding:4px 10px;border-radius:2px;
+ border:1px solid hsl(var(--h) var(--chipS) 62% / .5);
+ background:transparent;color:var(--muted);display:flex;gap:6px;align-items:baseline}
+.fchip.on{background:hsl(var(--h) var(--chipS) var(--chipL));color:hsl(var(--h) 55% var(--chipT));
+ border-color:hsl(var(--h) var(--chipS) 60% / .55);font-weight:600}
+.fchip b{font-size:10px;font-variant-numeric:tabular-nums;opacity:.7;font-weight:500}
+.fchip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.walkctl{display:flex;gap:9px;align-items:center;font-size:12px;color:var(--muted);
+ margin-left:auto;text-transform:uppercase;letter-spacing:.07em}
+.walkctl input{width:130px;accent-color:var(--accent)}
+.walkctl output{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+
+.day{margin-top:38px;scroll-margin-top:130px}
+.dayhead{border-top:2px solid var(--ink);padding-top:12px}
+.dayhead h2{font-family:"Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",system-ui,sans-serif;
+ text-transform:uppercase;font-size:30px;letter-spacing:-.005em;margin:0;font-weight:700}
+.dt{margin:2px 0 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+ font-variant-numeric:tabular-nums}
+.bar{position:relative;height:22px;background:var(--bartrack);border-radius:1px;margin-bottom:26px}
+.blk{position:absolute;top:0;height:10px;background:var(--barfill);opacity:.85;border-radius:1px}
+.tk{position:absolute;top:12px;font-size:10px;color:var(--muted);transform:translateX(-50%);
+ font-family:"SF Mono",ui-monospace,Menlo,monospace}
+.tk i{display:block;width:1px;height:4px;background:var(--line2);margin:0 auto 1px}
+.gaps{margin:-16px 0 18px;font-size:12.5px;color:var(--ink2);font-family:"SF Mono",ui-monospace,Menlo,monospace}
+.gaps span{text-transform:uppercase;letter-spacing:.11em;font-size:10px;color:var(--muted);
+ font-family:inherit;margin-right:8px}
+
+.evs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--line)}
+.ev{display:grid;grid-template-columns:74px 1fr;gap:18px;background:var(--surface);padding:14px 16px 15px}
+.ev:hover{background:var(--raise)}
+.when{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+ text-align:right;padding-top:2px}
+.when b{display:block;font-size:15px;font-weight:600;letter-spacing:-.02em}
+.when span{display:block;font-size:11.5px;color:var(--muted)}
+.ttl{margin:0 0 3px;font-size:17.5px;font-weight:600;line-height:1.28;text-wrap:balance}
+.dsc{margin:0 0 8px;color:var(--ink2);font-size:14.5px;line-height:1.5;max-width:66ch}
+.meta{margin:0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:11.5px;
+ color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
+ font-family:"Avenir Next Condensed","Arial Narrow",system-ui,sans-serif}
+.chip{background:hsl(var(--h) var(--chipS) var(--chipL));color:hsl(var(--h) 55% var(--chipT));
+ padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
+.loc{color:var(--ink2);font-weight:600}
+.walk{font-family:"SF Mono",ui-monospace,Menlo,monospace;text-transform:none;letter-spacing:0}
+.host{opacity:.75;text-transform:none;letter-spacing:0;font-style:italic;
+ font-family:Charter,Palatino,Georgia,serif}
+.flag{padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
+.oneshot{border:1px solid var(--accent);color:var(--accent)}
+.clash{border:1px dashed var(--line2);color:var(--muted)}
+.ev[hidden]{display:none}
+.day.empty{display:none}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:18px;
+ font-size:13px;color:var(--muted);max-width:70ch}
+footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
+ background:var(--surface);padding:1px 5px;border-radius:2px;color:var(--ink2)}
+@media (max-width:620px){ .ev{grid-template-columns:58px 1fr;gap:12px} .walkctl{margin-left:0;width:100%} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+<div class="wrap">
+<header class="top">
+ <h1>Axis Mundi<em>Salon</em></h1>
+ <p class="sub">Every talk, lecture, death café, science hour and real conversation at Burning Man 2026 —
+ filtered to the 164 sessions that land between 5am and 11pm, measured on foot from 4:00 &amp; E.
+ Pulled from the Dust dataset, which the app itself can't filter this way.</p>
+ <div class="facts">
+  <div><b>164</b><span>sessions</span></div>
+  <div><b>112</b><span>distinct events</span></div>
+  <div><b>3,408</b><span>screened from</span></div>
+  <div><b>93</b><span>one showing only</span></div>
+  <div><b>16<small style="font-size:14px"> min</small></b><span>median walk</span></div>
+ </div>
+</header>
+
+<div class="controls">
+ <nav class="navdays"><a href="#d2026-08-30">Gat<b>2</b></a><a href="#d2026-08-31">Mon<b>20</b></a><a href="#d2026-09-01">Tue<b>31</b></a><a href="#d2026-09-02">Wed<b>32</b></a><a href="#d2026-09-03">Thu<b>39</b></a><a href="#d2026-09-04">Fri<b>28</b></a><a href="#d2026-09-05">Sat<b>10</b></a><a href="#d2026-09-06">Tem<b>2</b></a></nav>
+ <div class="filters"><button class="fchip on" data-t="Philosophy" style="--h:228">Philosophy<b>27</b></button><button class="fchip on" data-t="Science" style="--h:190">Science<b>29</b></button><button class="fchip on" data-t="AI &amp; society" style="--h:266">AI &amp; society<b>19</b></button><button class="fchip on" data-t="Death &amp; grief" style="--h:348">Death &amp; grief<b>16</b></button><button class="fchip on" data-t="Storytelling" style="--h:32">Storytelling<b>20</b></button><button class="fchip on" data-t="Lecture" style="--h:158">Lecture<b>17</b></button><button class="fchip on" data-t="Culture &amp; land" style="--h:96">Culture &amp; land<b>12</b></button><button class="fchip on" data-t="Climate &amp; tech" style="--h:205">Climate &amp; tech<b>7</b></button><button class="fchip on" data-t="Conversation craft" style="--h:310">Conversation craft<b>6</b></button><button class="fchip on" data-t="Games for the brain" style="--h:50">Games for the brain<b>11</b></button>
+  <label class="walkctl">walk under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
+ </div>
+</div>
+
+<section class="day" id="d2026-08-30">
+ <header class="dayhead">
+  <h2>Gate Sunday</h2><p class="dt">2026-08-30 · 2 picks</p>
+  <div class="bar"><span class="blk" style="left:72.22%;width:27.78%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–18:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="13" data-clash="1">
+ <div class="when"><b>18:00</b><span>18:15</span></div>
+ <div class="body">
+  <p class="ttl">Radical Humanity in the Age of AI</p>
+  <p class="dsc">When AI can do everything, the most subversive act is to become fiercely human.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">D &amp; 2:15</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Cohere</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-08-31">
+ <header class="dayhead">
+  <h2>Monday</h2><p class="dt">2026-08-31 · 20 picks</p>
+  <div class="bar"><span class="blk" style="left:19.44%;width:47.22%"></span><span class="blk" style="left:72.22%;width:27.78%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–08:30 · 17:00–18:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Death &amp; grief" data-walk="99" data-clash="0">
+ <div class="when"><b>08:30</b><span>10:30</span></div>
+ <div class="body">
+  <p class="ttl">Grief Circles at Center Camp</p>
+  <p class="dsc">Are you grieving? Come chat/share/support with other grievers in a circle.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Consequences of a Gnostic Neuron</p>
+  <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Gnostic Neuron</p>
+  <p class="dsc">How knowledge is created and other brain conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">The Human Design</p>
+  <p class="dsc">A short talk on what human beings are designed for. Questions/discussion after.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lotus Dome &amp; Café</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="99" data-clash="1">
+ <div class="when"><b>11:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">No Small Talk</p>
+  <p class="dsc">Dusty humans seeking real conversation. Side effects may include new friendships.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="27" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Hour</p>
+  <p class="dsc">Tell stories, hear stories, learn how to make your stories the best stories.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">7:30 G Plaza @ 1:30</span>
+   <span class="walk">27 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">No Holes Barred Comedy Club</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Disorient Talks</p>
+  <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">Esplanade &amp; 8:00</span>
+   <span class="walk">23 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Disorient</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:30</span></div>
+ <div class="body">
+  <p class="ttl">AI Office Hours-Bring Your Weird Problem</p>
+  <p class="dsc">Stuck on an idea, model, dataset, or technical rabbit hole? Ask an expert!</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">B &amp; 3:45</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp NOT a Cult!</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="3" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">AI &amp; The Culture</p>
+  <p class="dsc">A high-energy debate on how AI is radically reshaping creativity and culture.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">D &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Naacb</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">LongeviTEA talks</p>
+  <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Fountain (of youth)</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Word Game Meetups and Tournaments</p>
+  <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="13" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Radical Humanity in the Age of AI</p>
+  <p class="dsc">When AI can do everything, the most subversive act is to become fiercely human.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">D &amp; 2:15</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Cohere</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="3" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Solar Maxing</p>
+  <p class="dsc">Let&#x27;s talk sustainable energy with solar shade and mobile batteries.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">4:00 &amp; B</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bao Chicka Wow Wow</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling: A Radical Gift of Hope</p>
+  <p class="dsc">Talk: Monday,August 31, 2:00–3:00 p.m. on the main stage.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">DataBash: BRC Census &amp; Researchers</p>
+  <p class="dsc">Learn about the BRC Census &amp; methodology. Researchers, come share your projects!</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 6:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Census</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="99" data-clash="1">
+ <div class="when"><b>15:45</b><span>16:30</span></div>
+ <div class="body">
+  <p class="ttl">Creating Community (Speaker Series)</p>
+  <p class="dsc">Anthropological discussion of Burning Man as a case study of community formation.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1">
+ <div class="when"><b>19:00</b><span>20:00</span></div>
+ <div class="body">
+  <p class="ttl">Phage Talks</p>
+  <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Institute</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="21" data-clash="1">
+ <div class="when"><b>20:00</b><span>22:00</span></div>
+ <div class="body">
+  <p class="ttl">Deep Talk: Strip Your Soul Bare</p>
+  <p class="dsc">Let&#x27;s get weirdly real -- skip the weather, talk soul to soul instead.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">7:30 Portal &amp; A</span>
+   <span class="walk">21 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Pretty Pickle</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-01">
+ <header class="dayhead">
+  <h2>Tuesday</h2><p class="dt">2026-09-01 · 31 picks</p>
+  <div class="bar"><span class="blk" style="left:8.33%;width:11.11%"></span><span class="blk" style="left:27.78%;width:72.22%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–06:30 · 08:30–10:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Science" data-walk="9" data-clash="0">
+ <div class="when"><b>06:30</b><span>08:30</span></div>
+ <div class="body">
+  <p class="ttl">Experience a Playa Deep Time Bike Tour</p>
+  <p class="dsc">Explore the playa with a geologist. Deep Time = Geologic Time.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="15" data-clash="0">
+ <div class="when"><b>10:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">TEDX Black Rock City - Reunion Talks</p>
+  <p class="dsc">For 6 years we brought TEDxBlackRockCity to the playa! Let&#x27;s revisit the ideas!</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 2:15</span>
+   <span class="walk">15 min walk</span>
+   
+   <span class="host">Daydream</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Consequences of a Gnostic Neuron</p>
+  <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Gnostic Neuron</p>
+  <p class="dsc">How knowledge is created and other brain conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="13" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">QLC Counseling</p>
+  <p class="dsc">Come with a question; leave with many, many more.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">B &amp; 5:45</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Nope</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1">
+ <div class="when"><b>10:00</b><span>10:45</span></div>
+ <div class="body">
+  <p class="ttl">The Science of Human Flourishing</p>
+  <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="99" data-clash="1">
+ <div class="when"><b>11:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">No Small Talk</p>
+  <p class="dsc">Dusty humans seeking real conversation. Side effects may include new friendships.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="15" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Quantum Tangerines</p>
+  <p class="dsc">Learn the meaning of &quot;Quantum&quot;, beyond hype &amp; mysticism.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Plaza @ 10:45</span>
+   <span class="walk">15 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lusty Chanterelle Kombucha Bar</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Disorient Talks</p>
+  <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">Esplanade &amp; 8:00</span>
+   <span class="walk">23 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Disorient</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1">
+ <div class="when"><b>11:45</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Ask an Astronomer-Black Rock Observatory</p>
+  <p class="dsc">Come get your questions answered about Life, the Universe and Everything.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="99" data-clash="0">
+ <div class="when"><b>13:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">No Datacenters in BRC Rally</p>
+  <p class="dsc">March against AI datacenters in BRC, then a pub crawl.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">6:00 Esplanade</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">Art Speaks: Artist Storytelling</p>
+  <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">History of LNT &amp; Its Relationship to BM</p>
+  <p class="dsc">A LNT master explains how this principle came to be a core foundation of BM.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">LongeviTEA talks</p>
+  <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Fountain (of youth)</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Word Game Meetups and Tournaments</p>
+  <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="25" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Chess Simultan</p>
+  <p class="dsc">Practice your mind playing chess simultan in the dessert.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">7:30 &amp; E</span>
+   <span class="walk">25 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Dusty Dreamers</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="17" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">The Emerging Clean Tech Revolution</p>
+  <p class="dsc">Query leading clean tech scientists on the explosion of renewables.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">H &amp; 2:15</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Black Rock Labs The Expanse</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="17" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">The Language of Connection</p>
+  <p class="dsc">Understanding yourself so others can truly understand you.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="17" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Microdosing Death</p>
+  <p class="dsc">Enter your painbody. Meet your monkeymind. See your shadow. Die here, be free.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Cold Yogis</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="9" data-clash="1">
+ <div class="when"><b>14:30</b><span>15:30</span></div>
+ <div class="body">
+  <p class="ttl">Unearthing Data Centers</p>
+  <p class="dsc">The connection between AI, data centers, lithium mining and Nevada&#x27;s land.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Parley! (Guided Conversations)</p>
+  <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">E &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Parley</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="18" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:15</span></div>
+ <div class="body">
+  <p class="ttl">Meet the Man Base Build Krewe Talk, Q&amp;A</p>
+  <p class="dsc">Krewe of artists builders &amp; craftsmen tell all about the Man&#x27;s Playa home.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">6:30 &amp; B</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mansonian Institute 4 Urban Study</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Ego Death, Harm Reduction, &amp; Connection</p>
+  <p class="dsc">Explore transformation through psychology, mysticism, and community.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="17" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Mythological You!</p>
+  <p class="dsc">Tragic flaws make heroes, shared interests make friends. All are welcome!</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="26" data-clash="1">
+ <div class="when"><b>16:00</b><span>19:00</span></div>
+ <div class="body">
+  <p class="ttl">Shifting States</p>
+  <p class="dsc">Talks on AI / Consciousness &amp; Human Flourishing followed by MAXA Sunset DJ set.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">10:37 2700&#x27;, Open Playa</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mebuyan Pulse</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="18" data-clash="1">
+ <div class="when"><b>17:00</b><span>18:30</span></div>
+ <div class="body">
+  <p class="ttl">Paranormal Storytelling Happy Hour</p>
+  <p class="dsc">Bring a true tale of ghosts, dreams, synchronicities or playa magic.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">B &amp; 6:45</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Astral Social Club</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1">
+ <div class="when"><b>17:00</b><span>18:00</span></div>
+ <div class="body">
+  <p class="ttl">Precision Health Promotion</p>
+  <p class="dsc">An academic discussion of individualized well-being and precision health.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 9:15</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Entheos Community Village</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="1">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1">
+ <div class="when"><b>19:00</b><span>20:00</span></div>
+ <div class="body">
+  <p class="ttl">Phage Talks</p>
+  <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Institute</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="18" data-clash="1">
+ <div class="when"><b>21:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Actually Fun Trivia</p>
+  <p class="dsc">Trivia that doesn&#x27;t suck- teams, laughs, drinks, and epic brain battles!</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">Esplanade &amp; 6:45</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lamplighters</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-02">
+ <header class="dayhead">
+  <h2>Wednesday</h2><p class="dt">2026-09-02 · 32 picks</p>
+  <div class="bar"><span class="blk" style="left:22.22%;width:77.78%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–09:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="0">
+ <div class="when"><b>09:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">A nonreligious safe place for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="19" data-clash="1">
+ <div class="when"><b>09:00</b><span>10:00</span></div>
+ <div class="body">
+  <p class="ttl">Cinnamon rolls and math</p>
+  <p class="dsc">&quot;Math&#x27;s elegant truth brings silent harmony to a chaotic world&quot; AI.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">6:15 &amp; G</span>
+   <span class="walk">19 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Pepperland</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Consequences of a Gnostic Neuron</p>
+  <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Gnostic Neuron</p>
+  <p class="dsc">How knowledge is created and other brain conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="3" data-clash="1">
+ <div class="when"><b>10:00</b><span>11:45</span></div>
+ <div class="body">
+  <p class="ttl">Authentic Relating Workshop</p>
+  <p class="dsc">Exercises in active listening for deep empathy, vulnerability &amp; connection.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lotus Dome &amp; Café</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1">
+ <div class="when"><b>10:00</b><span>10:45</span></div>
+ <div class="body">
+  <p class="ttl">The Science of Human Flourishing</p>
+  <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="99" data-clash="1">
+ <div class="when"><b>11:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Puzzle Therapy</p>
+  <p class="dsc">2,000 pieces. Countless conversations. Stay 2 minutes or 2 hours!</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Geology of the Black Rock Desert</p>
+  <p class="dsc">Expert geologist from UC Davis explains the landforms around BRC.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Disorient Talks</p>
+  <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">Esplanade &amp; 8:00</span>
+   <span class="walk">23 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Disorient</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="25" data-clash="1">
+ <div class="when"><b>12:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Poetry Pavilion</p>
+  <p class="dsc">Find the poet inside - Inspire, explore, and express your soul in our poetry ses.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">8:00 &amp; C</span>
+   <span class="walk">25 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Rumi&#x27;s Tea House</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">Art Speaks: Artist Storytelling</p>
+  <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">Conundrum Clinic: Principles Collide</p>
+  <p class="dsc">Bring your dilemma. Join as we debate it. Leave even more confused. (Host: BMPC).</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">F &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Brainiac Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="9" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">What&#x27;s All This Plastic?!?</p>
+  <p class="dsc">Intro &amp; history of plastics &amp; the health, social, and environmental concerns.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="6" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">What to leave at the Temple on Playa</p>
+  <p class="dsc">Reflect on your participation at the Temple: Remembering, Grief, Celebration.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">G &amp; 4:45</span>
+   <span class="walk">6 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Memento Mori</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">LongeviTEA talks</p>
+  <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Fountain (of youth)</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="15" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Jazz History Workshop</p>
+  <p class="dsc">A guided listening tour of Jazz History.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Center Camp Plaza @ 7:15</span>
+   <span class="walk">15 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Playa Jazz Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Word Game Meetups and Tournaments</p>
+  <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="1" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Drunk History Talks</p>
+  <p class="dsc">Rumbling and mumbling about mostly true stories.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">4:00 &amp; E</span>
+   <span class="walk">1 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Art Haus</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="13" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Navigating conflict with grace</p>
+  <p class="dsc">Discuss how to reframe conflict as a golden opportunity for growth.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">D &amp; 2:15</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Cohere</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="17" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Update on BRC Sustainability Roadmap</p>
+  <p class="dsc">BRC Staff Will Update Progress on BRC Sustainability Roadmap.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">H &amp; 2:15</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Black Rock Labs The Expanse</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="5" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Tortoise Talk</p>
+  <p class="dsc">Ask the densest pack of Mojave Desert Tortoise biologists on the playa anything.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">4:30 Portal &amp; A</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Embers</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="27" data-clash="1">
+ <div class="when"><b>14:30</b><span>15:30</span></div>
+ <div class="body">
+  <p class="ttl">Your Very Smart and Very Dumb Brain 101</p>
+  <p class="dsc">See how your brain makes decisions well, and how it sometimes fucks up.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">9:00 B Plaza @ 3:45</span>
+   <span class="walk">27 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Xoxo</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">DataBash: Get Nerdy with Burning Nerds!</p>
+  <p class="dsc">Meet Burning Nerds and learn about Burning Stories and other research projects.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 6:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Census</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Parley! (Guided Conversations)</p>
+  <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">E &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Parley</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="5" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Consciousness, Love &amp; Happiness</p>
+  <p class="dsc">A swami and a storyteller explore the deepest questions of being human.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Beyond Hierarchy: A New OS for Humanity</p>
+  <p class="dsc">What if how we organize people is holding back the very intelligence we need?</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="1">
+ <div class="when"><b>16:30</b><span>18:00</span></div>
+ <div class="body">
+  <p class="ttl">Science Open Mic</p>
+  <p class="dsc">Share YOUR science with fellow academics! Lab coat &amp; whiteboard provided.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">B &amp; 4:15</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lobe</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="8" data-clash="1">
+ <div class="when"><b>18:00</b><span>20:00</span></div>
+ <div class="body">
+  <p class="ttl">Strictly Clownfidential Storytelling</p>
+  <p class="dsc">Stiltbar storytelling happy hour for the stories you can&#x27;t tell back home.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">8 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Red Nose District</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1">
+ <div class="when"><b>19:00</b><span>20:00</span></div>
+ <div class="body">
+  <p class="ttl">Phage Talks</p>
+  <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Institute</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="30" data-clash="1">
+ <div class="when"><b>20:00</b><span>20:45</span></div>
+ <div class="body">
+  <p class="ttl">The Three Lives Project</p>
+  <p class="dsc">A guided reflection on identity and reinvention.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">8:30 &amp; F</span>
+   <span class="walk">30 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Never Sleep Again</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-03">
+ <header class="dayhead">
+  <h2>Thursday</h2><p class="dt">2026-09-03 · 39 picks</p>
+  <div class="bar"><span class="blk" style="left:27.78%;width:72.22%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–10:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Lecture" data-walk="15" data-clash="0">
+ <div class="when"><b>10:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">TEDX Black Rock City - Reunion Talks</p>
+  <p class="dsc">For 6 years we brought TEDxBlackRockCity to the playa! Let&#x27;s revisit the ideas!</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 2:15</span>
+   <span class="walk">15 min walk</span>
+   
+   <span class="host">Daydream</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Consequences of a Gnostic Neuron</p>
+  <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Gnostic Neuron</p>
+  <p class="dsc">How knowledge is created and other brain conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="13" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">QLC Counseling</p>
+  <p class="dsc">Come with a question; leave with many, many more.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">B &amp; 5:45</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Nope</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="3" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Circling: Real Connection Lab</p>
+  <p class="dsc">A facilitated space to share honestly, listen deeply, and meet what&#x27;s real.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lotus Dome &amp; Café</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="9" data-clash="1">
+ <div class="when"><b>10:00</b><span>11:00</span></div>
+ <div class="body">
+  <p class="ttl">Stabilizing the Climate: Sunshades</p>
+  <p class="dsc">Latest research on a space-based sunshade to cool the planet.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>10:00</b><span>11:00</span></div>
+ <div class="body">
+  <p class="ttl">Street Epistemology</p>
+  <p class="dsc">A respectful inquiry practice for exploring why we believe what we believe.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">C &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Contact</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1">
+ <div class="when"><b>10:00</b><span>10:45</span></div>
+ <div class="body">
+  <p class="ttl">The Science of Human Flourishing</p>
+  <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="26" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Beyond Small Talk</p>
+  <p class="dsc">Authentic Connection &amp; Meaningful Conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="15" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Quantum Tangerines</p>
+  <p class="dsc">Learn the meaning of &quot;Quantum&quot;, beyond hype &amp; mysticism.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Center Camp Plaza @ 10:45</span>
+   <span class="walk">15 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lusty Chanterelle Kombucha Bar</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="26" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">What the Dying Teach the Living</p>
+  <p class="dsc">A tea circle exploring death and what it can teach us about living.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Disorient Talks</p>
+  <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">Esplanade &amp; 8:00</span>
+   <span class="walk">23 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Disorient</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="6" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:30</span></div>
+ <div class="body">
+  <p class="ttl">The quantum amplituhedron w/ Stan</p>
+  <p class="dsc">Explore the amplituhedron: where particles, geometry &amp; playa magic collide.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">D &amp; 3:15</span>
+   <span class="walk">6 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">A Transformation Station</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="16" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">How to Die Before You Die</p>
+  <p class="dsc">Explore what the dying actually fear and how ego death and psychedelics may help.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">The Festival Effect: Brain &amp; Belonging</p>
+  <p class="dsc">How festivals and human connection can reshape the brain and change us.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">Art Speaks: Artist Storytelling</p>
+  <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">The Black Rock Desert:Our Inspiring Home</p>
+  <p class="dsc">Intro to the cultural and natural history of the vast BR Desert. Bring questions.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">LongeviTEA talks</p>
+  <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Fountain (of youth)</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Psychedelic States</p>
+  <p class="dsc">Exploring a psychedelic future and related policies by a drug policy expert.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Psychedelics: Trust, Policy &amp; Future</p>
+  <p class="dsc">Trust, policy and the forces shaping the future of psychedelic states.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="15" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Jazz History Workshop 2</p>
+  <p class="dsc">A guided listening tour of Jazz History.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Center Camp Plaza @ 7:15</span>
+   <span class="walk">15 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Playa Jazz Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Word Game Meetups and Tournaments</p>
+  <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Cryptic Crossword Meetup</p>
+  <p class="dsc">WTF are Cryptic Crosswords? Learn solving or enter our clue writing competition.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="31" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Wizard Talks</p>
+  <p class="dsc">Tiny talks on big ideas, strange fascinations, and topics worth sharing.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">8:45 &amp; F</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Servants of the Secret Fire</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="17" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">The Language of Connection</p>
+  <p class="dsc">Understanding yourself so others can truly understand you.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Academics Anonymous Support Circle</p>
+  <p class="dsc">Anxious students and burnt out professors; Process your academic angst with us!</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">B &amp; 4:15</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lobe</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="99" data-clash="1">
+ <div class="when"><b>14:30</b><span>15:30</span></div>
+ <div class="body">
+  <p class="ttl">You&#x27;re on Paiute Land. Meet an Elder.</p>
+  <p class="dsc">Dean Barlese shares Paiute teachings on water, land, and healing, then Q&amp;A.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="9" data-clash="1">
+ <div class="when"><b>14:45</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Culture &amp; AI: A Matrilineal Case Study</p>
+  <p class="dsc">What can the Mosuo reveal about culture, human systems, and the future of AI?</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">Esplanade &amp; 3:00 Portal</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">I Love Elephants</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Parley! (Guided Conversations)</p>
+  <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">E &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Parley</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="17" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Mythological You!</p>
+  <p class="dsc">Tragic flaws make heroes, shared interests make friends. All are welcome!</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="16" data-clash="1">
+ <div class="when"><b>15:30</b><span>16:30</span></div>
+ <div class="body">
+  <p class="ttl">MDMA Therapy: What&#x27;s Next?</p>
+  <p class="dsc">Expert-led panel on the latest MDMA research, policy and use for mental health.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">G &amp; 5:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Sensation</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Neuroscience, Creativity and AI</p>
+  <p class="dsc">Technology changes fast. Humans don&#x27;t. Explore how AI can truly make you smarter.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="12" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Radical Connection Circle</p>
+  <p class="dsc">Deep conversations and meaningful connections.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">C &amp; 2:15</span>
+   <span class="walk">12 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SoulSound</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="33" data-clash="1">
+ <div class="when"><b>16:00</b><span>16:30</span></div>
+ <div class="body">
+  <p class="ttl">The Science behind human flourishing</p>
+  <p class="dsc">Intrinsic motivation grows through autonomy, mastery, and connection.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">G &amp; 9:15</span>
+   <span class="walk">33 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Snuggles</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="0">
+ <div class="when"><b>17:00</b><span>18:30</span></div>
+ <div class="body">
+  <p class="ttl">The Neuroscience of Psychedelics + Q&amp;A</p>
+  <p class="dsc">How do psychedelics affect our brains &amp; blow our minds? Neuroscientists explain.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">B &amp; 4:15</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">Lobe</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="16" data-clash="1">
+ <div class="when"><b>17:00</b><span>18:00</span></div>
+ <div class="body">
+  <p class="ttl">Psychedelics &amp; Medicine</p>
+  <p class="dsc">Panel with leaders on psychedelic science.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="1">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="21" data-clash="1">
+ <div class="when"><b>18:00</b><span>19:00</span></div>
+ <div class="body">
+  <p class="ttl">Two Spirit Wisdom</p>
+  <p class="dsc">Paiute elder Dean Barlese on the sacred role of Two Spirit people in community.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">7:00 &amp; E</span>
+   <span class="walk">21 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Comfort &amp; Joy</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-04">
+ <header class="dayhead">
+  <h2>Friday</h2><p class="dt">2026-09-04 · 28 picks</p>
+  <div class="bar"><span class="blk" style="left:22.22%;width:47.22%"></span><span class="blk" style="left:72.22%;width:27.78%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–09:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Death &amp; grief" data-walk="22" data-clash="0">
+ <div class="when"><b>09:00</b><span>11:00</span></div>
+ <div class="body">
+  <p class="ttl">Death Cafe: A Grief Gathering</p>
+  <p class="dsc">Shared stories of love/loss welcome. Have a cuppa with loved ones, here &amp; away.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">E &amp; 6:45</span>
+   <span class="walk">22 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">Beaverton</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Consequences of a Gnostic Neuron</p>
+  <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1">
+ <div class="when"><b>10:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Gnostic Neuron</p>
+  <p class="dsc">How knowledge is created and other brain conversations.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">6:00 G Plaza @ 7:30</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">People&#x27;s Art Congress</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="27" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Hour</p>
+  <p class="dsc">Tell stories, hear stories, learn how to make your stories the best stories.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">7:30 G Plaza @ 1:30</span>
+   <span class="walk">27 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">No Holes Barred Comedy Club</span></p>
+ </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="4" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">Talk Series: About Sustainability</p>
+  <p class="dsc">A special guest asks the uncomfortable question out loud.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">3:30 &amp; C</span>
+   <span class="walk">4 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Sobremesa</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>11:00</b><span>12:00</span></div>
+ <div class="body">
+  <p class="ttl">The (AI)xis Mundi: What is Intelligence?</p>
+  <p class="dsc">Grounding AI between Utopia and Dystopia to build Protopia in the real world.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Geology of the Black Rock Desert</p>
+  <p class="dsc">Expert geologist from UC Davis explains the landforms around BRC.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="29" data-clash="1">
+ <div class="when"><b>11:30</b><span>12:30</span></div>
+ <div class="body">
+  <p class="ttl">Healing Relationships - Beginning Anew</p>
+  <p class="dsc">A mindful practice for holding difficult conversations.</p>
+  <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
+   <span class="loc">F &amp; 8:15</span>
+   <span class="walk">29 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">HeeBeeGeeBee Healers</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="3" data-clash="1">
+ <div class="when"><b>12:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Stories Under The Dome</p>
+  <p class="dsc">Small-group storytelling and meaningful conversations.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">4:30 &amp; E</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Lotus Dome &amp; Café</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="26" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">The Last Human Advantage</p>
+  <p class="dsc">AI, Consciousness &amp; What Makes Us Irreplaceable.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>12:00</b><span>13:00</span></div>
+ <div class="body">
+  <p class="ttl">Cooperation as Operating System of Life</p>
+  <p class="dsc">What bio &amp; human cooperation can teach about building AI for a positive future.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Indigenous-led Rights of Nature</p>
+  <p class="dsc">Discussion how this movement can address the polycrises around the world.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Incubating a Better World</p>
+  <p class="dsc">Facilitated Discussion: How might we carry this spark back to our home community.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">B &amp; 6:45</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Astral Social Club</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="17" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Death Cafe</p>
+  <p class="dsc">Join an open discussion about death, dying and end of life issues.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">6:30 &amp; B</span>
+   <span class="walk">17 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Interzone</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">LongeviTEA talks</p>
+  <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">E &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">The Fountain (of youth)</span></p>
+ </div></li><li class="ev" data-theme-name="Lecture" data-walk="15" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Tent Talks with Catfish</p>
+  <p class="dsc">How to tell your origin story and the significance of self-identification.</p>
+  <p class="meta"><span class="chip" style="--h:158">Lecture</span>
+   <span class="loc">6:00 &amp; D</span>
+   <span class="walk">15 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Native Tongues</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">AI Art: Mentor, Mirror, or Monster?</p>
+  <p class="dsc">Playa artists panel: Portal of Collective Imagination, Confessional Alter, AI AM.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="26" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">An Immersive Storytelling Experience</p>
+  <p class="dsc">An immersive storytelling experience to imagine more beautiful worlds.</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Esplanade &amp; 9:45</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Bloom Camp</span></p>
+ </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Word Game Meetups and Tournaments</p>
+  <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
+  <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
+   <span class="loc">6:00 G Plaza @ 12:45</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Word Play Cafe</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="13" data-clash="1">
+ <div class="when"><b>14:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">You belong here</p>
+  <p class="dsc">Within every human is a simple truth: we long to belong.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">D &amp; 2:15</span>
+   <span class="walk">13 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Camp Cohere</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">What Are Burners Creating with AI?</p>
+  <p class="dsc">Lightning talks with Burners using AI to build their dreams.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Parley! (Guided Conversations)</p>
+  <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">E &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Parley</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>15:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">Is a Flourishing World Possible with AI?</p>
+  <p class="dsc">3 serial founders building in quantum, bio-sciences &amp; sovereign AI explore.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="26" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:30</span></div>
+ <div class="body">
+  <p class="ttl">Catheric Writing Workshop</p>
+  <p class="dsc">A guided unforgettable ritual to help explore your grief. Be ready to let go.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">8:30 &amp; B</span>
+   <span class="walk">26 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Black Hole Literary Society</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="14" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:30</span></div>
+ <div class="body">
+  <p class="ttl">Participation Changes Everything</p>
+  <p class="dsc">Why people build stronger futures when they build them together.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">2:00 &amp; D</span>
+   <span class="walk">14 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Deoxidized</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1">
+ <div class="when"><b>16:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">From Scarcity to Abundance</p>
+  <p class="dsc">What Burning Man can teach a Post-AGI economy.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-05">
+ <header class="dayhead">
+  <h2>Saturday — Burn Night</h2><p class="dt">2026-09-05 · 10 picks</p>
+  <div class="bar"><span class="blk" style="left:27.78%;width:5.56%"></span><span class="blk" style="left:44.44%;width:22.22%"></span><span class="blk" style="left:72.22%;width:27.78%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–10:00 · 11:00–13:00 · 17:00–18:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Climate &amp; tech" data-walk="9" data-clash="0">
+ <div class="when"><b>10:00</b><span>11:00</span></div>
+ <div class="body">
+  <p class="ttl">Sustainable Food Systems</p>
+  <p class="dsc">Interactive talk imagining a sustainable food system for America/the world.</p>
+  <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
+   <span class="loc">Esplanade &amp; 5:00</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
+   <span class="host">Earth Guardians</span></p>
+ </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="0">
+ <div class="when"><b>13:00</b><span>16:00</span></div>
+ <div class="body">
+  <p class="ttl">The Empty Chair</p>
+  <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">9:00 &amp; E</span>
+   <span class="walk">31 min walk</span>
+   
+   <span class="host">SnowKoanSolar</span></p>
+ </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:15</span></div>
+ <div class="body">
+  <p class="ttl">The Wisdom of Elephants</p>
+  <p class="dsc">Join conservationist Philip Price for insights into elephant intelligence.</p>
+  <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
+   <span class="loc">Esplanade &amp; 3:00 Portal</span>
+   <span class="walk">9 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">I Love Elephants</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="16" data-clash="1">
+ <div class="when"><b>13:00</b><span>14:00</span></div>
+ <div class="body">
+  <p class="ttl">Mother Nature is Pregnant. We are her it</p>
+  <p class="dsc">Why are we here? We must make a backup of life, by settling on other planets.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="5" data-clash="1">
+ <div class="when"><b>13:30</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">The Neuroscience of Changing the World</p>
+  <p class="dsc">Want to make a difference and care about science? Big questions answered here.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">3:30 &amp; D</span>
+   <span class="walk">5 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Alchemist Bazaar</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="99" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:30</span></div>
+ <div class="body">
+  <p class="ttl">AI, Tech &amp; Society Panel</p>
+  <p class="dsc">How do we reconcile rapid advances in AI human-centric principles ?</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">Center Camp</span>
+   <span class="walk">walk n/a</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Science" data-walk="19" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">Geological perspective on climate change</p>
+  <p class="dsc">We will discuss what is likely to happen and what if anything we can do about it.</p>
+  <p class="meta"><span class="chip" style="--h:190">Science</span>
+   <span class="loc">6:15 &amp; G</span>
+   <span class="walk">19 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Pepperland</span></p>
+ </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1">
+ <div class="when"><b>14:00</b><span>15:00</span></div>
+ <div class="body">
+  <p class="ttl">AI, Art, and the Future</p>
+  <p class="dsc">Come explore the future of intelligence, creativity, and evolution.</p>
+  <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
+   <span class="loc">2:00 &amp; F</span>
+   <span class="walk">16 min walk</span>
+   <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Mystic</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1">
+ <div class="when"><b>15:00</b><span>17:00</span></div>
+ <div class="body">
+  <p class="ttl">Parley! (Guided Conversations)</p>
+  <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">E &amp; 3:45</span>
+   <span class="walk">3 min walk</span>
+   <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
+   <span class="host">Parley</span></p>
+ </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0">
+ <div class="when"><b>18:00</b><span>23:00</span></div>
+ <div class="body">
+  <p class="ttl">Storytelling Trading Booth</p>
+  <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
+  <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
+   <span class="loc">Center Camp Plaza @ 11:30</span>
+   <span class="walk">13 min walk</span>
+   
+   <span class="host">Magic Lantern Society</span></p>
+ </div></li></ol>
+</section><section class="day" id="d2026-09-06">
+ <header class="dayhead">
+  <h2>Temple Sunday</h2><p class="dt">2026-09-06 · 2 picks</p>
+  <div class="bar"><span class="blk" style="left:19.44%;width:11.11%"></span><span class="blk" style="left:44.44%;width:8.33%"></span><span class="tk" style="left:5.56%"><i></i>6</span><span class="tk" style="left:22.22%"><i></i>9</span><span class="tk" style="left:38.89%"><i></i>12</span><span class="tk" style="left:55.56%"><i></i>15</span><span class="tk" style="left:72.22%"><i></i>18</span><span class="tk" style="left:88.89%"><i></i>21</span></div>
+  <p class="gaps"><span>open</span> 05:00–08:30 · 10:30–13:00 · 14:30–23:00</p>
+ </header>
+ <ol class="evs"><li class="ev" data-theme-name="Death &amp; grief" data-walk="99" data-clash="0">
+ <div class="when"><b>08:30</b><span>10:30</span></div>
+ <div class="body">
+  <p class="ttl">Grief Circles at Center Camp</p>
+  <p class="dsc">Are you grieving? Come chat/share/support with other grievers in a circle.</p>
+  <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
+   <span class="loc">Center Camp Canopy</span>
+   <span class="walk">walk n/a</span>
+   
+   <span class="host">Burning Man org</span></p>
+ </div></li><li class="ev" data-theme-name="Philosophy" data-walk="18" data-clash="0">
+ <div class="when"><b>13:00</b><span>14:30</span></div>
+ <div class="body">
+  <p class="ttl">Conundrum Clinic: Principles Collide</p>
+  <p class="dsc">Bring your dilemma. Join as we debate it. Leave even more confused. (Host: BMPC).</p>
+  <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
+   <span class="loc">F &amp; 6:15</span>
+   <span class="walk">18 min walk</span>
+   
+   <span class="host">Brainiac Camp</span></p>
+ </div></li></ol>
+</section>
+
+<footer>
+<p><b>How to read it.</b> The bar under each day covers 5am–11pm; filled blocks are hours with something on,
+and the <em>open</em> line lists every gap over an hour — that's your bike time, meal time, and Temple time.
+<b>Only showing</b> means the event runs exactly once all week. <b>Overlaps</b> means it starts before the
+previous listing ends, so you're choosing between them, not stacking them.</p>
+<p>Walk times assume 80 m/min from the centroid of 4:00 &amp; E. Seventeen sessions have no GPS in the
+source data (Center Camp stages, Temple grounds, open-playa coordinates) and show <code>walk n/a</code>.
+Times are the official ones and will drift on playa — treat them as intentions, not guarantees.</p>
+</footer>
+</div>
+<script>
+const chips=[...document.querySelectorAll('.fchip')], slider=document.getElementById('wk'),
+      out=document.getElementById('wkv'), evs=[...document.querySelectorAll('.ev')];
+function apply(){
+  const on=new Set(chips.filter(c=>c.classList.contains('on')).map(c=>c.dataset.t));
+  const max=+slider.value; out.textContent = max>=35?'any':max+' min';
+  evs.forEach(e=>{
+    const w=+e.dataset.walk;
+    e.hidden = !on.has(e.dataset.themeName) || (max<35 && w!==99 && w>max);
+  });
+  document.querySelectorAll('.day').forEach(d=>{
+    d.classList.toggle('empty', ![...d.querySelectorAll('.ev')].some(e=>!e.hidden));
+  });
+}
+chips.forEach(c=>c.addEventListener('click',()=>{c.classList.toggle('on');apply()}));
+slider.addEventListener('input',apply); apply();
+</script>

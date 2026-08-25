@@ -11,10 +11,10 @@ build/missed.txt
 *.pyc
 __pycache__/
 
-# Built pages — regenerate with `python3 build/gen.py && python3 build/assemble.py`.
-# Kept out of the repo because playabrain.html inlines the full DJ lineup, which
-# is pre-release: api.dust.events still serves an empty rsl.json in production.
-out/
+# The built pages ARE the deliverable, so they are committed. Regenerate with
+# `python3 build/gen.py && python3 build/assemble.py`.
 
-# Same reason — the pre-release lineup itself. fetch.py pulls it on demand.
+# The raw DJ lineup stays out: it is pre-release (production rsl.json still
+# returns []), and fetch.py pulls it on demand anyway. playabrain.html embeds
+# the parts of it people actually need.
 data/bm_rsl.json
