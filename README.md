@@ -88,3 +88,21 @@ The ~30 artists in `KNOWN_MEL` are ones whose genre I could actually vouch for;
 they get the same green `verified` badge the real thinkers use.
 
 **This lineup is pre-release and will change.** Re-run `fetch.py` before travel.
+
+## Amenity tags (meals / showers / beauty)
+
+None of these exist in Dust. There is no amenity field, no category, and no map
+layer — `map-2026.geojson` carries only `OBJECTID`/`FID`, and 235 source files
+in damiant/dust never mention showers. They exist solely in the prose camps
+wrote about themselves, so `payload.py` reads the **host camp's** description,
+not just the event text.
+
+- **Real meals** — Dust's Food+Beverages holds 560 events; 125 are edible. Eight
+  actual meals are filed under Beverages (Bloody Mary Breakfast, Champagne &
+  Donuts), so both categories are read rather than trusting the camp's filing.
+- **Showers & steam** — mostly steam, sauna and foam; greywater rules make real
+  showers rare as a gift. `SHOWER_NOT` excludes camps describing *member*
+  infrastructure: Wrongtown and Stag Camp both say "camp showers" and mean
+  their own crew, not you.
+- **Beauty & grooming** — a deliberately wide net (massage, salon, nails, paint,
+  glitter, costume). 373 events; treat it as a browse aid, not a shortlist.

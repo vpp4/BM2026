@@ -46,6 +46,35 @@ TAGS=[
 ]
 TAGS=[(n,re.compile(p,re.I)) for n,p in TAGS]
 
+# A real meal, not a shot of whiskey. Dust's Food+Beverages category holds 560
+# events; only 125 are something you can eat. It cuts the other way too — eight
+# actual meals sit under Beverages (Bloody Mary Breakfast, Champagne & Donuts),
+# so this looks at both categories rather than trusting the camp's own filing.
+MEALS = re.compile(r'breakfast|brunch|lunch|dinner|supper|feast|bbq|barbecue|grill|taco|'
+ r'pizza|pasta|curry|ramen|noodle|burrito|sandwich|soup|stew|pancake|waffle|omelet|'
+ r'burger|crepe|cr\u00eape|paella|dumpling|\bpho\b|banh mi|gumbo|jambalaya|chili|hot ?dog|'
+ r'falafel|shawarma|biryani|kebab|empanada|arepa|pierogi|schnitzel|risotto|gyro|'
+ r'bao\b|dim sum|tahdig|quesadilla|nachos|chicken sandwich|smashburger', re.I)
+MEAL_CATS = ('Food','Beverages','Other')
+
+# Neither of these exists anywhere in Dust: no category, no map layer, nothing
+# in 235 source files. They live only in prose camps wrote about themselves,
+# so these read the HOST CAMP description, not the event text.
+SHOWER = re.compile(r'\bshower|bath ?house|banya|laznia|\bsauna\b|steam ?(bath|room|sauna)|'
+ r'hot tub|soak(ing)? tub|carcass wash|foam (blast|party)|rinse|misting station|'
+ r'wash station|body wash|bathe|bathing|l\u00f6yly', re.I)
+# member-only infrastructure, not a gift — never tag these
+SHOWER_NOT = re.compile(r'camp showers|shared showers|meal plans|kitchen shifts|'
+ r'everyone is expected|not the spot for you', re.I)
+BEAUTY = re.compile(r'\bsalon\b|hair ?(cut|do|styl|dress)|barber|\bshave|beard trim|'
+ r'nail|manicure|pedicure|makeup|make.?up|face ?paint|body ?paint|glitter|'
+ r'\bspa\b|massage|facial|grooming|styling|wardrobe|costum(e|ing)|dress ?up|'
+ r'\bpamper|beauty|tattoo|henna|piercing|eyelash|braid', re.I)
+
+MEAL_TAG   = len(TAGS)+2
+SHOWER_TAG = len(TAGS)+3
+BEAUTY_TAG = len(TAGS)+4
+
 # --- provenance flags -------------------------------------------------------
 # v = a real, checkable person or institution stands behind it (hand-verified)
 VERIFIED = {
@@ -91,12 +120,14 @@ def r5(x): return round(x,5) if x is not None else None
 
 out=[]
 for e in ev:
-    kind=name=loc=None; lat=lng=None
+    kind=name=loc=None; lat=lng=None; hdesc=''
     if e.get('hosted_by_camp') in campmap:
         c=campmap[e['hosted_by_camp']]; kind=0; name=c.get('name'); loc=c.get('location_string')
+        hdesc=c.get('description') or ''
         g=c.get('gps') or {}; lat,lng=g.get('lat'),g.get('long')
     elif e.get('located_at_art') in artmap:
         a=artmap[e['located_at_art']]; kind=1; name=a.get('name'); loc=a.get('location_string')
+        hdesc=a.get('description') or ''
         g=a.get('location') or {}; lat,lng=g.get('gps_latitude'),g.get('gps_longitude')
     if not loc and e.get('other_location'): loc=e['other_location']
 
@@ -119,6 +150,12 @@ for e in ev:
     if kind==1: rec['a']=1
     if e.get('title') in picks: rec['s']=1
     lab=e['event_type']['label']
+    if lab in MEAL_CATS and MEALS.search(blob): rec['g']=rec['g']+[MEAL_TAG]
+    # host-camp text is the only place these are described
+    hostblob = ' '.join(filter(None,[e.get('title'), e.get('description'), hdesc]))
+    if SHOWER.search(hostblob) and not SHOWER_NOT.search(hdesc):
+        rec['g']=rec['g']+[SHOWER_TAG]
+    if BEAUTY.search(hostblob): rec['g']=rec['g']+[BEAUTY_TAG]
     woo = bool(WOO.search(blob))
     if e.get('title') in VERIFIED: rec['v']=1
     if woo: rec['w']=1
@@ -179,7 +216,7 @@ for x in rsl:
         out.append(rec); n_music += 1
 
 geo=json.load(open(bpath('geo.json')))
-data={'geo':geo,'days':DAYS,'cats':CATS,'tags':[n for n,_ in TAGS]+['Melodic & organic','Bass & rave'],'ev':out}
+data={'geo':geo,'days':DAYS,'cats':CATS,'tags':[n for n,_ in TAGS]+['Melodic & organic','Bass & rave','Real meals','Showers & steam','Beauty & grooming'],'ev':out}
 
 raw=json.dumps(data,separators=(',',':'),ensure_ascii=False)
 open(bpath('payload.json'),'w',encoding='utf-8').write(raw)
@@ -189,6 +226,9 @@ print(f"records kept    : {len(out)}  (events {len(out)-n_music}, DJ sets {n_mus
 print(f"  verified real   : {sum(1 for r in out if r.get('v'))}")
 print(f"  unnamed guest?  : {sum(1 for r in out if r.get('u'))}")
 print(f"  woo-flagged     : {sum(1 for r in out if r.get('w'))}")
+print(f"  real meals      : {sum(1 for r in out if MEAL_TAG in r.get('g',[]))}")
+print(f"  showers & steam : {sum(1 for r in out if SHOWER_TAG in r.get('g',[]))}")
+print(f"  beauty          : {sum(1 for r in out if BEAUTY_TAG in r.get('g',[]))}")
 print(f"payload minified : {len(raw.encode())/1024:.0f} KB")
 print(f"payload gzipped  : {len(gz)/1024:.0f} KB")
 print(f"gzip+base64      : {len(base64.b64encode(gz))/1024:.0f} KB")
