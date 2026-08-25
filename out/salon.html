@@ -93,6 +93,7 @@ h1 em{font-style:normal;color:var(--accent);display:block}
  padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
 .loc{color:var(--ink2);font-weight:600}
 .walk{font-family:"SF Mono",ui-monospace,Menlo,monospace;text-transform:none;letter-spacing:0}
+.walk .sep{opacity:.4}
 .host{opacity:.75;text-transform:none;letter-spacing:0;font-style:italic;
  font-family:Charter,Palatino,Georgia,serif}
 .flag{padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
@@ -126,7 +127,8 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
  <nav class="navdays"><a href="#d2026-08-30">Gat<b>2</b></a><a href="#d2026-08-31">Mon<b>20</b></a><a href="#d2026-09-01">Tue<b>31</b></a><a href="#d2026-09-02">Wed<b>32</b></a><a href="#d2026-09-03">Thu<b>39</b></a><a href="#d2026-09-04">Fri<b>28</b></a><a href="#d2026-09-05">Sat<b>10</b></a><a href="#d2026-09-06">Tem<b>2</b></a></nav>
  <div class="filters"><button class="fchip on" data-t="Philosophy" style="--h:228">Philosophy<b>27</b></button><button class="fchip on" data-t="Science" style="--h:190">Science<b>29</b></button><button class="fchip on" data-t="AI &amp; society" style="--h:266">AI &amp; society<b>19</b></button><button class="fchip on" data-t="Death &amp; grief" style="--h:348">Death &amp; grief<b>16</b></button><button class="fchip on" data-t="Storytelling" style="--h:32">Storytelling<b>20</b></button><button class="fchip on" data-t="Lecture" style="--h:158">Lecture<b>17</b></button><button class="fchip on" data-t="Culture &amp; land" style="--h:96">Culture &amp; land<b>12</b></button><button class="fchip on" data-t="Climate &amp; tech" style="--h:205">Climate &amp; tech<b>7</b></button><button class="fchip on" data-t="Conversation craft" style="--h:310">Conversation craft<b>6</b></button><button class="fchip on" data-t="Games for the brain" style="--h:50">Games for the brain<b>11</b></button>
   <label class="walkctl">your camp <select id="hc"></select><select id="hs"></select></label>
-  <label class="walkctl">walk under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
+  <label class="walkctl">by <select id="md"><option value="walk">walk</option><option value="bike">bike</option></select></label>
+  <label class="walkctl">under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
  </div>
 </div>
 
@@ -143,7 +145,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    
    <span class="host">Magic Lantern Society</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="13" data-clash="1" >
@@ -153,7 +155,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">When AI can do everything, the most subversive act is to become fiercely human.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">D &amp; 2:15</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Cohere</span></p>
  </div></li></ol>
@@ -170,7 +172,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Are you grieving? Come chat/share/support with other grievers in a circle.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -180,7 +182,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -190,7 +192,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How knowledge is created and other brain conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -200,7 +202,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A short talk on what human beings are designed for. Questions/discussion after.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lotus Dome &amp; Café</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="99" data-clash="1" >
@@ -210,7 +212,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Dusty humans seeking real conversation. Side effects may include new friendships.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="27" data-clash="1" >
@@ -220,7 +222,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Tell stories, hear stories, learn how to make your stories the best stories.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">7:30 G Plaza @ 1:30</span>
-   <span class="walk" data-walk-cell>27 min walk</span>
+   <span class="walk" data-walk-cell>27 min walk <span class="sep">/</span> 11 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">No Holes Barred Comedy Club</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1" >
@@ -230,7 +232,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">Esplanade &amp; 8:00</span>
-   <span class="walk" data-walk-cell>23 min walk</span>
+   <span class="walk" data-walk-cell>23 min walk <span class="sep">/</span> 9 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Disorient</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -240,7 +242,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Stuck on an idea, model, dataset, or technical rabbit hole? Ask an expert!</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">B &amp; 3:45</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp NOT a Cult!</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1" >
@@ -250,7 +252,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="3" data-clash="1" >
@@ -260,7 +262,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A high-energy debate on how AI is radically reshaping creativity and culture.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">D &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Naacb</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1" >
@@ -270,7 +272,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Fountain (of youth)</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -280,7 +282,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="13" data-clash="1" >
@@ -290,7 +292,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">When AI can do everything, the most subversive act is to become fiercely human.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">D &amp; 2:15</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Cohere</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="3" data-clash="1" >
@@ -300,7 +302,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Let&#x27;s talk sustainable energy with solar shade and mobile batteries.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">4:00 &amp; B</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bao Chicka Wow Wow</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1" >
@@ -310,7 +312,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talk: Monday,August 31, 2:00–3:00 p.m. on the main stage.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1" >
@@ -320,7 +322,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Learn about the BRC Census &amp; methodology. Researchers, come share your projects!</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 6:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Census</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="99" data-clash="1" >
@@ -330,7 +332,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Anthropological discussion of Burning Man as a case study of community formation.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0" >
@@ -340,7 +342,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    
    <span class="host">Magic Lantern Society</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1" >
@@ -350,7 +352,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Institute</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="21" data-clash="1" >
@@ -360,7 +362,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Let&#x27;s get weirdly real -- skip the weather, talk soul to soul instead.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">7:30 Portal &amp; A</span>
-   <span class="walk" data-walk-cell>21 min walk</span>
+   <span class="walk" data-walk-cell>21 min walk <span class="sep">/</span> 8 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Pretty Pickle</span></p>
  </div></li></ol>
@@ -377,7 +379,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Explore the playa with a geologist. Deep Time = Geologic Time.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="15" data-clash="0" >
@@ -387,7 +389,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">For 6 years we brought TEDxBlackRockCity to the playa! Let&#x27;s revisit the ideas!</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 2:15</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    
    <span class="host">Daydream</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -397,7 +399,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -407,7 +409,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How knowledge is created and other brain conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="13" data-clash="1" >
@@ -417,7 +419,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come with a question; leave with many, many more.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">B &amp; 5:45</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Nope</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1" >
@@ -427,7 +429,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="99" data-clash="1" >
@@ -437,7 +439,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Dusty humans seeking real conversation. Side effects may include new friendships.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="15" data-clash="1" >
@@ -447,7 +449,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Learn the meaning of &quot;Quantum&quot;, beyond hype &amp; mysticism.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Plaza @ 10:45</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lusty Chanterelle Kombucha Bar</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1" >
@@ -457,7 +459,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">Esplanade &amp; 8:00</span>
-   <span class="walk" data-walk-cell>23 min walk</span>
+   <span class="walk" data-walk-cell>23 min walk <span class="sep">/</span> 9 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Disorient</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1" >
@@ -467,7 +469,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come get your questions answered about Life, the Universe and Everything.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="99" data-clash="0" >
@@ -477,7 +479,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">March against AI datacenters in BRC, then a pub crawl.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">6:00 Esplanade</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1" >
@@ -487,7 +489,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1" >
@@ -497,7 +499,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1" >
@@ -507,7 +509,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A LNT master explains how this principle came to be a core foundation of BM.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1" >
@@ -517,7 +519,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Fountain (of youth)</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -527,7 +529,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="25" data-clash="1" >
@@ -537,7 +539,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Practice your mind playing chess simultan in the dessert.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">7:30 &amp; E</span>
-   <span class="walk" data-walk-cell>25 min walk</span>
+   <span class="walk" data-walk-cell>25 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Dusty Dreamers</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="17" data-clash="1" >
@@ -547,7 +549,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Query leading clean tech scientists on the explosion of renewables.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">H &amp; 2:15</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Black Rock Labs The Expanse</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="17" data-clash="1" >
@@ -557,7 +559,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Understanding yourself so others can truly understand you.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="17" data-clash="1" >
@@ -567,7 +569,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Enter your painbody. Meet your monkeymind. See your shadow. Die here, be free.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Cold Yogis</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="9" data-clash="1" >
@@ -577,7 +579,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The connection between AI, data centers, lithium mining and Nevada&#x27;s land.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -587,7 +589,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">E &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Parley</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="18" data-clash="1" >
@@ -597,7 +599,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Krewe of artists builders &amp; craftsmen tell all about the Man&#x27;s Playa home.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">6:30 &amp; B</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mansonian Institute 4 Urban Study</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1" >
@@ -607,7 +609,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Explore transformation through psychology, mysticism, and community.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="17" data-clash="1" >
@@ -617,7 +619,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Tragic flaws make heroes, shared interests make friends. All are welcome!</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="26" data-clash="1" >
@@ -627,7 +629,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talks on AI / Consciousness &amp; Human Flourishing followed by MAXA Sunset DJ set.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">10:37 2700&#x27;, Open Playa</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mebuyan Pulse</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="18" data-clash="1" >
@@ -637,7 +639,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Bring a true tale of ghosts, dreams, synchronicities or playa magic.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">B &amp; 6:45</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Astral Social Club</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1" >
@@ -647,7 +649,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">An academic discussion of individualized well-being and precision health.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 9:15</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Entheos Community Village</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="1" >
@@ -657,7 +659,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Magic Lantern Society</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1" >
@@ -667,7 +669,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Institute</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="18" data-clash="1" >
@@ -677,7 +679,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Trivia that doesn&#x27;t suck- teams, laughs, drinks, and epic brain battles!</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">Esplanade &amp; 6:45</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lamplighters</span></p>
  </div></li></ol>
@@ -694,7 +696,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A nonreligious safe place for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="19" data-clash="1" >
@@ -704,7 +706,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">&quot;Math&#x27;s elegant truth brings silent harmony to a chaotic world&quot; AI.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">6:15 &amp; G</span>
-   <span class="walk" data-walk-cell>19 min walk</span>
+   <span class="walk" data-walk-cell>19 min walk <span class="sep">/</span> 8 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Pepperland</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -714,7 +716,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -724,7 +726,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How knowledge is created and other brain conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="3" data-clash="1" >
@@ -734,7 +736,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Exercises in active listening for deep empathy, vulnerability &amp; connection.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lotus Dome &amp; Café</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1" >
@@ -744,7 +746,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="99" data-clash="1" >
@@ -754,7 +756,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">2,000 pieces. Countless conversations. Stay 2 minutes or 2 hours!</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1" >
@@ -764,7 +766,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Expert geologist from UC Davis explains the landforms around BRC.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1" >
@@ -774,7 +776,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">Esplanade &amp; 8:00</span>
-   <span class="walk" data-walk-cell>23 min walk</span>
+   <span class="walk" data-walk-cell>23 min walk <span class="sep">/</span> 9 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Disorient</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="25" data-clash="1" >
@@ -784,7 +786,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Find the poet inside - Inspire, explore, and express your soul in our poetry ses.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">8:00 &amp; C</span>
-   <span class="walk" data-walk-cell>25 min walk</span>
+   <span class="walk" data-walk-cell>25 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Rumi&#x27;s Tea House</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1" >
@@ -794,7 +796,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1" >
@@ -804,7 +806,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="18" data-clash="1" >
@@ -814,7 +816,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Bring your dilemma. Join as we debate it. Leave even more confused. (Host: BMPC).</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">F &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Brainiac Camp</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="9" data-clash="1" >
@@ -824,7 +826,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Intro &amp; history of plastics &amp; the health, social, and environmental concerns.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="6" data-clash="1" >
@@ -834,7 +836,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Reflect on your participation at the Temple: Remembering, Grief, Celebration.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">G &amp; 4:45</span>
-   <span class="walk" data-walk-cell>6 min walk</span>
+   <span class="walk" data-walk-cell>6 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Memento Mori</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1" >
@@ -844,7 +846,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Fountain (of youth)</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="15" data-clash="1" >
@@ -854,7 +856,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A guided listening tour of Jazz History.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Center Camp Plaza @ 7:15</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Playa Jazz Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -864,7 +866,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="1" data-clash="1" >
@@ -874,7 +876,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rumbling and mumbling about mostly true stories.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">4:00 &amp; E</span>
-   <span class="walk" data-walk-cell>1 min walk</span>
+   <span class="walk" data-walk-cell>1 min walk <span class="sep">/</span> 0 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Art Haus</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="13" data-clash="1" >
@@ -884,7 +886,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Discuss how to reframe conflict as a golden opportunity for growth.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">D &amp; 2:15</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Cohere</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="17" data-clash="1" >
@@ -894,7 +896,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">BRC Staff Will Update Progress on BRC Sustainability Roadmap.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">H &amp; 2:15</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Black Rock Labs The Expanse</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="5" data-clash="1" >
@@ -904,7 +906,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Ask the densest pack of Mojave Desert Tortoise biologists on the playa anything.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">4:30 Portal &amp; A</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Embers</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="27" data-clash="1" >
@@ -914,7 +916,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">See how your brain makes decisions well, and how it sometimes fucks up.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">9:00 B Plaza @ 3:45</span>
-   <span class="walk" data-walk-cell>27 min walk</span>
+   <span class="walk" data-walk-cell>27 min walk <span class="sep">/</span> 11 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Xoxo</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="17" data-clash="1" >
@@ -924,7 +926,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Meet Burning Nerds and learn about Burning Stories and other research projects.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 6:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Census</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -934,7 +936,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">E &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Parley</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="5" data-clash="1" >
@@ -944,7 +946,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A swami and a storyteller explore the deepest questions of being human.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1" >
@@ -954,7 +956,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">What if how we organize people is holding back the very intelligence we need?</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="1" >
@@ -964,7 +966,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Share YOUR science with fellow academics! Lab coat &amp; whiteboard provided.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">B &amp; 4:15</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lobe</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0" >
@@ -974,7 +976,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    
    <span class="host">Magic Lantern Society</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="8" data-clash="1" >
@@ -984,7 +986,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Stiltbar storytelling happy hour for the stories you can&#x27;t tell back home.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>8 min walk</span>
+   <span class="walk" data-walk-cell>8 min walk <span class="sep">/</span> 3 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Red Nose District</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="4" data-clash="1" >
@@ -994,7 +996,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Short science talks designed to tickle your sense of wonder.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Institute</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="30" data-clash="1" >
@@ -1004,7 +1006,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A guided reflection on identity and reinvention.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">8:30 &amp; F</span>
-   <span class="walk" data-walk-cell>30 min walk</span>
+   <span class="walk" data-walk-cell>30 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Never Sleep Again</span></p>
  </div></li></ol>
@@ -1021,7 +1023,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">For 6 years we brought TEDxBlackRockCity to the playa! Let&#x27;s revisit the ideas!</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 2:15</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    
    <span class="host">Daydream</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -1031,7 +1033,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -1041,7 +1043,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How knowledge is created and other brain conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="13" data-clash="1" >
@@ -1051,7 +1053,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come with a question; leave with many, many more.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">B &amp; 5:45</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Nope</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="3" data-clash="1" >
@@ -1061,7 +1063,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A facilitated space to share honestly, listen deeply, and meet what&#x27;s real.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lotus Dome &amp; Café</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="9" data-clash="1" >
@@ -1071,7 +1073,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Latest research on a space-based sunshade to cool the planet.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -1081,7 +1083,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A respectful inquiry practice for exploring why we believe what we believe.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">C &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Contact</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="99" data-clash="1" >
@@ -1091,7 +1093,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The science of happiness, kindness, bearded dragons, and human flourishing.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="26" data-clash="1" >
@@ -1101,7 +1103,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Authentic Connection &amp; Meaningful Conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="15" data-clash="1" >
@@ -1111,7 +1113,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Learn the meaning of &quot;Quantum&quot;, beyond hype &amp; mysticism.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Center Camp Plaza @ 10:45</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lusty Chanterelle Kombucha Bar</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="26" data-clash="1" >
@@ -1121,7 +1123,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A tea circle exploring death and what it can teach us about living.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="23" data-clash="1" >
@@ -1131,7 +1133,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Talks on playa life, art, sound &amp; more, all served up with some Pornj flair.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">Esplanade &amp; 8:00</span>
-   <span class="walk" data-walk-cell>23 min walk</span>
+   <span class="walk" data-walk-cell>23 min walk <span class="sep">/</span> 9 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Disorient</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="6" data-clash="1" >
@@ -1141,7 +1143,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Explore the amplituhedron: where particles, geometry &amp; playa magic collide.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">D &amp; 3:15</span>
-   <span class="walk" data-walk-cell>6 min walk</span>
+   <span class="walk" data-walk-cell>6 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">A Transformation Station</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="16" data-clash="1" >
@@ -1151,7 +1153,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Explore what the dying actually fear and how ego death and psychedelics may help.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1" >
@@ -1161,7 +1163,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How festivals and human connection can reshape the brain and change us.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1" >
@@ -1171,7 +1173,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="99" data-clash="1" >
@@ -1181,7 +1183,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Burning Man&#x27;s official artist talk series, featuring conversations with artists.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1" >
@@ -1191,7 +1193,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Intro to the cultural and natural history of the vast BR Desert. Bring questions.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1" >
@@ -1201,7 +1203,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Fountain (of youth)</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1" >
@@ -1211,7 +1213,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Exploring a psychedelic future and related policies by a drug policy expert.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="26" data-clash="1" >
@@ -1221,7 +1223,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Trust, policy and the forces shaping the future of psychedelic states.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="15" data-clash="1" >
@@ -1231,7 +1233,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A guided listening tour of Jazz History.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Center Camp Plaza @ 7:15</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Playa Jazz Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -1241,7 +1243,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -1251,7 +1253,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">WTF are Cryptic Crosswords? Learn solving or enter our clue writing competition.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="31" data-clash="1" >
@@ -1261,7 +1263,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Tiny talks on big ideas, strange fascinations, and topics worth sharing.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">8:45 &amp; F</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Servants of the Secret Fire</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="17" data-clash="1" >
@@ -1271,7 +1273,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Understanding yourself so others can truly understand you.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="1" >
@@ -1281,7 +1283,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Anxious students and burnt out professors; Process your academic angst with us!</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">B &amp; 4:15</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lobe</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="99" data-clash="1" >
@@ -1291,7 +1293,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Dean Barlese shares Paiute teachings on water, land, and healing, then Q&amp;A.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="9" data-clash="1" >
@@ -1301,7 +1303,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">What can the Mosuo reveal about culture, human systems, and the future of AI?</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">Esplanade &amp; 3:00 Portal</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">I Love Elephants</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -1311,7 +1313,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">E &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Parley</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="17" data-clash="1" >
@@ -1321,7 +1323,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Tragic flaws make heroes, shared interests make friends. All are welcome!</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="16" data-clash="1" >
@@ -1331,7 +1333,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Expert-led panel on the latest MDMA research, policy and use for mental health.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">G &amp; 5:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Sensation</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1" >
@@ -1341,7 +1343,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Technology changes fast. Humans don&#x27;t. Explore how AI can truly make you smarter.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="12" data-clash="1" >
@@ -1351,7 +1353,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Deep conversations and meaningful connections.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">C &amp; 2:15</span>
-   <span class="walk" data-walk-cell>12 min walk</span>
+   <span class="walk" data-walk-cell>12 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SoulSound</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="33" data-clash="1" >
@@ -1361,7 +1363,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Intrinsic motivation grows through autonomy, mastery, and connection.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">G &amp; 9:15</span>
-   <span class="walk" data-walk-cell>33 min walk</span>
+   <span class="walk" data-walk-cell>33 min walk <span class="sep">/</span> 13 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Snuggles</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="4" data-clash="0" >
@@ -1371,7 +1373,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How do psychedelics affect our brains &amp; blow our minds? Neuroscientists explain.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">B &amp; 4:15</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">Lobe</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="16" data-clash="1" >
@@ -1381,7 +1383,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Panel with leaders on psychedelic science.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="1" >
@@ -1391,7 +1393,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Magic Lantern Society</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="21" data-clash="1" >
@@ -1401,7 +1403,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Paiute elder Dean Barlese on the sacred role of Two Spirit people in community.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">7:00 &amp; E</span>
-   <span class="walk" data-walk-cell>21 min walk</span>
+   <span class="walk" data-walk-cell>21 min walk <span class="sep">/</span> 8 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Comfort &amp; Joy</span></p>
  </div></li></ol>
@@ -1418,7 +1420,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Shared stories of love/loss welcome. Have a cuppa with loved ones, here &amp; away.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">E &amp; 6:45</span>
-   <span class="walk" data-walk-cell>22 min walk</span>
+   <span class="walk" data-walk-cell>22 min walk <span class="sep">/</span> 9 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">Beaverton</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -1428,7 +1430,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A Socratic discussion about the Jennifer Aniston neuron and its impact.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="17" data-clash="1" >
@@ -1438,7 +1440,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How knowledge is created and other brain conversations.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">6:00 G Plaza @ 7:30</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">People&#x27;s Art Congress</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="27" data-clash="1" >
@@ -1448,7 +1450,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Tell stories, hear stories, learn how to make your stories the best stories.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">7:30 G Plaza @ 1:30</span>
-   <span class="walk" data-walk-cell>27 min walk</span>
+   <span class="walk" data-walk-cell>27 min walk <span class="sep">/</span> 11 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">No Holes Barred Comedy Club</span></p>
  </div></li><li class="ev" data-theme-name="Climate &amp; tech" data-walk="4" data-clash="1" >
@@ -1458,7 +1460,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A special guest asks the uncomfortable question out loud.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">3:30 &amp; C</span>
-   <span class="walk" data-walk-cell>4 min walk</span>
+   <span class="walk" data-walk-cell>4 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Sobremesa</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1468,7 +1470,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Grounding AI between Utopia and Dystopia to build Protopia in the real world.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="9" data-clash="1" >
@@ -1478,7 +1480,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Expert geologist from UC Davis explains the landforms around BRC.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Conversation craft" data-walk="29" data-clash="1" >
@@ -1488,7 +1490,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A mindful practice for holding difficult conversations.</p>
   <p class="meta"><span class="chip" style="--h:310">Conversation craft</span>
    <span class="loc">F &amp; 8:15</span>
-   <span class="walk" data-walk-cell>29 min walk</span>
+   <span class="walk" data-walk-cell>29 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">HeeBeeGeeBee Healers</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="3" data-clash="1" >
@@ -1498,7 +1500,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Small-group storytelling and meaningful conversations.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">4:30 &amp; E</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Lotus Dome &amp; Café</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="26" data-clash="1" >
@@ -1508,7 +1510,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">AI, Consciousness &amp; What Makes Us Irreplaceable.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1518,7 +1520,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">What bio &amp; human cooperation can teach about building AI for a positive future.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="1" >
@@ -1528,7 +1530,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1" >
@@ -1538,7 +1540,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Discussion how this movement can address the polycrises around the world.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="18" data-clash="1" >
@@ -1548,7 +1550,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Facilitated Discussion: How might we carry this spark back to our home community.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">B &amp; 6:45</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Astral Social Club</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="17" data-clash="1" >
@@ -1558,7 +1560,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Join an open discussion about death, dying and end of life issues.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">6:30 &amp; B</span>
-   <span class="walk" data-walk-cell>17 min walk</span>
+   <span class="walk" data-walk-cell>17 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Interzone</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="18" data-clash="1" >
@@ -1568,7 +1570,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Rejuvenating Ice Tea + workshops led by leaders in longevity biotech &amp; wellness.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">E &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">The Fountain (of youth)</span></p>
  </div></li><li class="ev" data-theme-name="Lecture" data-walk="15" data-clash="1" >
@@ -1578,7 +1580,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How to tell your origin story and the significance of self-identification.</p>
   <p class="meta"><span class="chip" style="--h:158">Lecture</span>
    <span class="loc">6:00 &amp; D</span>
-   <span class="walk" data-walk-cell>15 min walk</span>
+   <span class="walk" data-walk-cell>15 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Native Tongues</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1588,7 +1590,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Playa artists panel: Portal of Collective Imagination, Confessional Alter, AI AM.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="26" data-clash="1" >
@@ -1598,7 +1600,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">An immersive storytelling experience to imagine more beautiful worlds.</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Esplanade &amp; 9:45</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Bloom Camp</span></p>
  </div></li><li class="ev" data-theme-name="Games for the brain" data-walk="16" data-clash="1" >
@@ -1608,7 +1610,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">M-W: Bananas for word games; Thu: Cryptic Crosswords; Fri: Lexacube Tourney.</p>
   <p class="meta"><span class="chip" style="--h:50">Games for the brain</span>
    <span class="loc">6:00 G Plaza @ 12:45</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Word Play Cafe</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="13" data-clash="1" >
@@ -1618,7 +1620,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Within every human is a simple truth: we long to belong.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">D &amp; 2:15</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Camp Cohere</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1628,7 +1630,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Lightning talks with Burners using AI to build their dreams.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -1638,7 +1640,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">E &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Parley</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1648,7 +1650,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">3 serial founders building in quantum, bio-sciences &amp; sovereign AI explore.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="26" data-clash="1" >
@@ -1658,7 +1660,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">A guided unforgettable ritual to help explore your grief. Be ready to let go.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">8:30 &amp; B</span>
-   <span class="walk" data-walk-cell>26 min walk</span>
+   <span class="walk" data-walk-cell>26 min walk <span class="sep">/</span> 10 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Black Hole Literary Society</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="14" data-clash="1" >
@@ -1668,7 +1670,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Why people build stronger futures when they build them together.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">2:00 &amp; D</span>
-   <span class="walk" data-walk-cell>14 min walk</span>
+   <span class="walk" data-walk-cell>14 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Deoxidized</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="5" data-clash="1" >
@@ -1678,7 +1680,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">What Burning Man can teach a Post-AGI economy.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0" >
@@ -1688,7 +1690,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    
    <span class="host">Magic Lantern Society</span></p>
  </div></li></ol>
@@ -1705,7 +1707,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Interactive talk imagining a sustainable food system for America/the world.</p>
   <p class="meta"><span class="chip" style="--h:205">Climate &amp; tech</span>
    <span class="loc">Esplanade &amp; 5:00</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span>
    <span class="host">Earth Guardians</span></p>
  </div></li><li class="ev" data-theme-name="Death &amp; grief" data-walk="31" data-clash="0" >
@@ -1715,7 +1717,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Nonreligious safe space for parents and grandparents that have lost a child.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">9:00 &amp; E</span>
-   <span class="walk" data-walk-cell>31 min walk</span>
+   <span class="walk" data-walk-cell>31 min walk <span class="sep">/</span> 12 min bike</span>
    
    <span class="host">SnowKoanSolar</span></p>
  </div></li><li class="ev" data-theme-name="Culture &amp; land" data-walk="9" data-clash="1" >
@@ -1725,7 +1727,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Join conservationist Philip Price for insights into elephant intelligence.</p>
   <p class="meta"><span class="chip" style="--h:96">Culture &amp; land</span>
    <span class="loc">Esplanade &amp; 3:00 Portal</span>
-   <span class="walk" data-walk-cell>9 min walk</span>
+   <span class="walk" data-walk-cell>9 min walk <span class="sep">/</span> 4 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">I Love Elephants</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="16" data-clash="1" >
@@ -1735,7 +1737,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Why are we here? We must make a backup of life, by settling on other planets.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="5" data-clash="1" >
@@ -1745,7 +1747,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Want to make a difference and care about science? Big questions answered here.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">3:30 &amp; D</span>
-   <span class="walk" data-walk-cell>5 min walk</span>
+   <span class="walk" data-walk-cell>5 min walk <span class="sep">/</span> 2 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Alchemist Bazaar</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="99" data-clash="1" >
@@ -1755,7 +1757,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">How do we reconcile rapid advances in AI human-centric principles ?</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">Center Camp</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Science" data-walk="19" data-clash="1" >
@@ -1765,7 +1767,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">We will discuss what is likely to happen and what if anything we can do about it.</p>
   <p class="meta"><span class="chip" style="--h:190">Science</span>
    <span class="loc">6:15 &amp; G</span>
-   <span class="walk" data-walk-cell>19 min walk</span>
+   <span class="walk" data-walk-cell>19 min walk <span class="sep">/</span> 8 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Pepperland</span></p>
  </div></li><li class="ev" data-theme-name="AI &amp; society" data-walk="16" data-clash="1" >
@@ -1775,7 +1777,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come explore the future of intelligence, creativity, and evolution.</p>
   <p class="meta"><span class="chip" style="--h:266">AI &amp; society</span>
    <span class="loc">2:00 &amp; F</span>
-   <span class="walk" data-walk-cell>16 min walk</span>
+   <span class="walk" data-walk-cell>16 min walk <span class="sep">/</span> 6 min bike</span>
    <span class="flag oneshot" title="This is the only time it runs all week">only showing</span><span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Mystic</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="3" data-clash="1" >
@@ -1785,7 +1787,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">The talk where &quot;Everyone Speaks&quot;! Topics posted daily.</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">E &amp; 3:45</span>
-   <span class="walk" data-walk-cell>3 min walk</span>
+   <span class="walk" data-walk-cell>3 min walk <span class="sep">/</span> 1 min bike</span>
    <span class="flag clash" title="Starts before the previous listing ends">overlaps</span>
    <span class="host">Parley</span></p>
  </div></li><li class="ev" data-theme-name="Storytelling" data-walk="13" data-clash="0" >
@@ -1795,7 +1797,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Come tend our Trading Booth, where stories and secrets are the only currency!</p>
   <p class="meta"><span class="chip" style="--h:32">Storytelling</span>
    <span class="loc">Center Camp Plaza @ 11:30</span>
-   <span class="walk" data-walk-cell>13 min walk</span>
+   <span class="walk" data-walk-cell>13 min walk <span class="sep">/</span> 5 min bike</span>
    
    <span class="host">Magic Lantern Society</span></p>
  </div></li></ol>
@@ -1812,7 +1814,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Are you grieving? Come chat/share/support with other grievers in a circle.</p>
   <p class="meta"><span class="chip" style="--h:348">Death &amp; grief</span>
    <span class="loc">Center Camp Canopy</span>
-   <span class="walk" data-walk-cell>walk n/a</span>
+   <span class="walk" data-walk-cell>distance n/a</span>
    
    <span class="host">Burning Man org</span></p>
  </div></li><li class="ev" data-theme-name="Philosophy" data-walk="18" data-clash="0" >
@@ -1822,7 +1824,7 @@ footer code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:12px;
   <p class="dsc">Bring your dilemma. Join as we debate it. Leave even more confused. (Host: BMPC).</p>
   <p class="meta"><span class="chip" style="--h:228">Philosophy</span>
    <span class="loc">F &amp; 6:15</span>
-   <span class="walk" data-walk-cell>18 min walk</span>
+   <span class="walk" data-walk-cell>18 min walk <span class="sep">/</span> 7 min bike</span>
    
    <span class="host">Brainiac Camp</span></p>
  </div></li></ol>
@@ -1845,13 +1847,14 @@ function apply(){
   const on=new Set(chips.filter(c=>c.classList.contains('on')).map(c=>c.dataset.t));
   const max=+slider.value; out.textContent = max>=35?'any':max+' min';
   evs.forEach(e=>{
-    const w=+e.dataset.walk;
-    e.hidden = !on.has(e.dataset.themeName) || (max<35 && w!==99 && w>max);
+    const w=+(MODE==='bike'?e.dataset.bike:e.dataset.walk);
+    e.hidden = !on.has(e.dataset.themeName) || (max<999 && w!==99 && w>max);
   });
   document.querySelectorAll('.day').forEach(d=>{
     d.classList.toggle('empty', ![...d.querySelectorAll('.ev')].some(e=>!e.hidden));
   });
 }
+let MODE='walk';
 const GEO={"streets":["ESPLANADE","A","B","C","D","E","F","G","H","I","J","K","L"],"table":{"ESPLANADE":{"120":[40.7809,-119.19857],"135":[40.78024,-119.19886],"150":[40.77952,-119.19947],"165":[40.77886,-119.20013],"180":[40.77808,-119.20098],"195":[40.77747,-119.20193],"210":[40.77695,-119.20302],"225":[40.77634,-119.20412],"240":[40.77621,-119.20533],"255":[40.77616,-119.20641],"270":[40.77594,-119.20783],"285":[40.77599,-119.20915],"300":[40.77611,-119.21033],"315":[40.77687,-119.21207],"330":[40.77682,-119.21188],"345":[40.77759,-119.21323],"360":[40.77809,-119.21468],"375":[40.77932,-119.21564],"390":[40.77959,-119.21676],"405":[40.7808,-119.21704],"420":[40.78144,-119.21713],"435":[40.78222,-119.21756],"450":[40.78328,-119.2175],"465":[40.78421,-119.21761],"480":[40.78521,-119.21733],"495":[40.78598,-119.21657],"510":[40.78682,-119.21612],"525":[40.78758,-119.21569],"540":[40.78846,-119.21466],"555":[40.78923,-119.2138],"570":[40.78957,-119.21275],"585":[40.78997,-119.21179],"600":[40.79035,-119.211]},"A":{"120":[40.78112,-119.19728],"135":[40.77994,-119.19795],"150":[40.77911,-119.19863],"165":[40.77846,-119.19924],"180":[40.77742,-119.20011],"195":[40.77679,-119.20138],"210":[40.77617,-119.20261],"225":[40.77567,-119.20375],"240":[40.77545,-119.20524],"255":[40.77514,-119.20649],"270":[40.77501,-119.20783],"285":[40.77516,-119.20931],"300":[40.77533,-119.2108],"315":[40.77568,-119.21217],"330":[40.7763,-119.21358],"345":[40.77634,-119.21399],"360":[40.77744,-119.21554],"375":[40.7784,-119.21678],"390":[40.77931,-119.21713],"405":[40.77984,-119.21767],"420":[40.78112,-119.21808],"435":[40.78211,-119.21835],"450":[40.78328,-119.21873],"465":[40.78437,-119.2188],"480":[40.7855,-119.21854],"495":[40.78642,-119.2177],"510":[40.78726,-119.21709],"525":[40.78802,-119.21645],"540":[40.78912,-119.21552],"555":[40.79003,-119.21428],"570":[40.79032,-119.21335],"585":[40.791,-119.21225],"600":[40.79106,-119.21115]},"B":{"120":[40.78098,-119.19658],"135":[40.77968,-119.19719],"150":[40.77883,-119.19789],"165":[40.77808,-119.19855],"180":[40.77703,-119.1996],"195":[40.77603,-119.20113],"210":[40.77563,-119.20199],"225":[40.7751,-119.20304],"240":[40.77462,-119.20502],"255":[40.77449,-119.20624],"270":[40.77446,-119.20784],"285":[40.7744,-119.20954],"300":[40.77468,-119.21093],"315":[40.77513,-119.2125],"330":[40.77551,-119.21355],"345":[40.77621,-119.21495],"360":[40.77705,-119.21606],"375":[40.77713,-119.21613],"390":[40.7789,-119.218],"405":[40.77982,-119.21855],"420":[40.78102,-119.21925],"435":[40.78198,-119.21924],"450":[40.78328,-119.21946],"465":[40.78457,-119.21941],"480":[40.78546,-119.21909],"495":[40.78663,-119.21858],"510":[40.78775,-119.21824],"525":[40.78843,-119.21733],"540":[40.78951,-119.21604],"555":[40.79031,-119.2146],"570":[40.79074,-119.21369],"585":[40.79123,-119.2128],"600":[40.79179,-119.21081]},"C":{"120":[40.78036,-119.19579],"135":[40.77927,-119.19629],"150":[40.7784,-119.19706],"165":[40.77724,-119.19776],"180":[40.77622,-119.19909],"195":[40.77515,-119.20089],"210":[40.77504,-119.20196],"225":[40.77438,-119.20294],"240":[40.77391,-119.20477],"255":[40.77369,-119.2064],"270":[40.77376,-119.20816],"285":[40.7738,-119.20978],"300":[40.77406,-119.21151],"315":[40.77441,-119.21285],"330":[40.77509,-119.21456],"345":[40.77579,-119.21586],"360":[40.77641,-119.21702],"375":[40.77722,-119.21767],"390":[40.77838,-119.21854],"405":[40.77932,-119.2194],"420":[40.78058,-119.21985],"435":[40.78209,-119.22062],"450":[40.78288,-119.22065],"465":[40.78442,-119.22039],"480":[40.78566,-119.2201],"495":[40.78701,-119.21983],"510":[40.78794,-119.21887],"525":[40.78872,-119.21793],"540":[40.79029,-119.21703],"555":[40.79084,-119.21547],"570":[40.79144,-119.21416],"585":[40.79212,-119.2131],"600":[40.79268,-119.21173]},"D":{"120":[40.77958,-119.19481],"135":[40.77854,-119.19563],"150":[40.77792,-119.19601],"165":[40.77702,-119.1968],"180":[40.77597,-119.19826],"195":[40.7749,-119.19906],"210":[40.77407,-119.20097],"225":[40.77366,-119.20271],"240":[40.77295,-119.20406],"255":[40.77293,-119.20617],"270":[40.77281,-119.20804],"285":[40.77297,-119.20973],"300":[40.77313,-119.21131],"315":[40.77401,-119.21324],"330":[40.77431,-119.2148],"345":[40.77554,-119.21655],"360":[40.77597,-119.21763],"375":[40.77694,-119.21877],"390":[40.77797,-119.21994],"405":[40.77929,-119.22053],"420":[40.78046,-119.22107],"435":[40.78178,-119.22136],"450":[40.78314,-119.22167],"465":[40.78461,-119.2214],"480":[40.78595,-119.22147],"495":[40.78727,-119.22052],"510":[40.78866,-119.22004],"525":[40.78926,-119.21874],"540":[40.79065,-119.21774],"555":[40.79142,-119.21604],"570":[40.79222,-119.2152],"585":[40.79279,-119.21348],"600":[40.79319,-119.21232]},"E":{"120":[40.77978,-119.19384],"135":[40.77903,-119.19429],"150":[40.77747,-119.19493],"165":[40.7766,-119.19628],"180":[40.77528,-119.19754],"195":[40.77446,-119.19883],"210":[40.77314,-119.20018],"225":[40.77301,-119.20216],"240":[40.77226,-119.20414],"255":[40.77225,-119.20568],"270":[40.77211,-119.2079],"285":[40.77235,-119.20871],"300":[40.77206,-119.21172],"315":[40.77258,-119.21316],"330":[40.7735,-119.21529],"345":[40.77379,-119.21723],"360":[40.7753,-119.21836],"375":[40.77643,-119.21933],"390":[40.77763,-119.22067],"405":[40.77881,-119.22143],"420":[40.78028,-119.22249],"435":[40.7816,-119.22231],"450":[40.78323,-119.22269],"465":[40.78485,-119.22247],"480":[40.7862,-119.2222],"495":[40.78765,-119.22187],"510":[40.7888,-119.22072],"525":[40.79007,-119.21961],"540":[40.79148,-119.21845],"555":[40.79217,-119.21664],"570":[40.7931,-119.21544],"585":[40.79354,-119.21362],"600":[40.79428,-119.21235]},"F":{"120":[40.77953,-119.19216],"135":[40.77852,-119.19246],"150":[40.77666,-119.19464],"165":[40.77494,-119.19539],"180":[40.77477,-119.19653],"195":[40.77358,-119.19762],"210":[40.77279,-119.19948],"225":[40.77216,-119.20131],"240":[40.77143,-119.20375],"255":[40.77097,-119.20539],"270":[40.77111,-119.20795],"285":[40.77083,-119.21017],"300":[40.77114,-119.21224],"315":[40.7715,-119.21368],"330":[40.77219,-119.21654],"345":[40.77322,-119.21804],"360":[40.77471,-119.21952],"375":[40.77593,-119.22115],"390":[40.77701,-119.22192],"405":[40.77878,-119.22275],"420":[40.78013,-119.22365],"435":[40.78194,-119.22418],"450":[40.78325,-119.22433],"465":[40.78489,-119.22377],"480":[40.78649,-119.22328],"495":[40.78752,-119.22308],"510":[40.78922,-119.2216],"525":[40.79099,-119.22071],"540":[40.7919,-119.21885],"555":[40.79367,-119.21758],"570":[40.79392,-119.21621],"585":[40.79476,-119.21435],"600":[40.79516,-119.21292]},"G":{"120":[40.77936,-119.19105],"135":[40.77843,-119.19123],"150":[40.77668,-119.1928],"165":[40.77525,-119.19406],"180":[40.77396,-119.19556],"195":[40.77283,-119.19727],"210":[40.77187,-119.19916],"225":[40.77112,-119.2012],"240":[40.77075,-119.20401],"255":[40.77015,-119.20634],"270":[40.77012,-119.20784],"285":[40.77027,-119.20984],"300":[40.77045,-119.21166],"315":[40.77113,-119.21449],"330":[40.77189,-119.21652],"345":[40.77284,-119.21879],"360":[40.77399,-119.22011],"375":[40.77518,-119.22181],"390":[40.77649,-119.2225],"405":[40.77826,-119.22387],"420":[40.77989,-119.22459],"435":[40.78157,-119.22503],"450":[40.78329,-119.22518],"465":[40.785,-119.22503],"480":[40.78669,-119.22458],"495":[40.78814,-119.22404],"510":[40.78986,-119.22284],"525":[40.7916,-119.22143],"540":[40.79258,-119.22008],"555":[40.79382,-119.21815],"570":[40.79473,-119.21627],"585":[40.79539,-119.21423],"600":[40.79585,-119.2125]},"H":{"120":[40.77936,-119.19009],"135":[40.77874,-119.19032],"150":[40.77626,-119.19184],"165":[40.77474,-119.19319],"180":[40.77337,-119.19478],"195":[40.77216,-119.1966],"210":[40.77115,-119.19861],"225":[40.77034,-119.20078],"240":[40.76976,-119.20307],"255":[40.7694,-119.20544],"270":[40.76911,-119.20834],"285":[40.76941,-119.21026],"300":[40.76977,-119.21262],"315":[40.77036,-119.21491],"330":[40.77117,-119.21707],"345":[40.77304,-119.22062],"360":[40.7734,-119.22089],"375":[40.77477,-119.22248],"390":[40.7763,-119.22382],"405":[40.77794,-119.22489],"420":[40.77967,-119.22566],"435":[40.78146,-119.22613],"450":[40.78327,-119.22595],"465":[40.78511,-119.22612],"480":[40.78691,-119.22565],"495":[40.78864,-119.22487],"510":[40.79028,-119.2238],"525":[40.7918,-119.22245],"540":[40.79317,-119.22086],"555":[40.7945,-119.2185],"570":[40.79584,-119.21681],"585":[40.79647,-119.2136],"600":[40.79662,-119.21368]},"I":{"120":[40.77883,-119.18936],"135":[40.77816,-119.19009],"150":[40.77603,-119.19048],"165":[40.77416,-119.19219],"180":[40.77265,-119.19417],"195":[40.7714,-119.19583],"210":[40.77032,-119.19798],"225":[40.76946,-119.2003],"240":[40.76884,-119.20274],"255":[40.76846,-119.20527],"270":[40.76833,-119.20785],"285":[40.76846,-119.21042],"300":[40.76885,-119.21295],"315":[40.76948,-119.21539],"330":[40.77034,-119.21771],"345":[40.77143,-119.21985],"360":[40.77332,-119.22268],"375":[40.77393,-119.22261],"390":[40.77582,-119.22492],"405":[40.77757,-119.22605],"420":[40.77942,-119.22688],"435":[40.78134,-119.22738],"450":[40.78329,-119.22755],"465":[40.78524,-119.22737],"480":[40.78716,-119.22687],"495":[40.78901,-119.22603],"510":[40.79076,-119.22489],"525":[40.79238,-119.22345],"540":[40.79385,-119.22175],"555":[40.79513,-119.21981],"570":[40.79645,-119.21754],"585":[40.79697,-119.21541],"600":[40.7974,-119.21352]},"J":{"120":[40.77923,-119.18806],"135":[40.77732,-119.18892],"150":[40.7755,-119.19011],"165":[40.77382,-119.1916],"180":[40.77201,-119.19372],"195":[40.77096,-119.19539],"210":[40.76984,-119.19761],"225":[40.76894,-119.20002],"240":[40.76829,-119.20255],"255":[40.7679,-119.20518],"270":[40.76777,-119.20785],"285":[40.76791,-119.21052],"300":[40.76831,-119.21314],"315":[40.76896,-119.21568],"330":[40.76986,-119.21808],"345":[40.77099,-119.2203],"360":[40.77233,-119.22231],"375":[40.77333,-119.22355],"390":[40.77554,-119.22556],"405":[40.77736,-119.22674],"420":[40.77928,-119.22759],"435":[40.78127,-119.22811],"450":[40.78329,-119.22828],"465":[40.78531,-119.22811],"480":[40.7873,-119.22758],"495":[40.78922,-119.22672],"510":[40.79035,-119.22606],"525":[40.79212,-119.22408],"540":[40.79346,-119.22319],"555":[40.79549,-119.22028],"570":[40.79668,-119.21846],"585":[40.7976,-119.21562],"600":[40.79824,-119.21309]},"K":{"120":[40.77785,-119.18824],"135":[40.77662,-119.1895],"150":[40.77572,-119.18995],"165":[40.77331,-119.19074],"180":[40.77171,-119.1926],"195":[40.7703,-119.19472],"210":[40.76912,-119.19707],"225":[40.76818,-119.1996],"240":[40.76749,-119.20227],"255":[40.76708,-119.20504],"270":[40.76694,-119.20785],"285":[40.76709,-119.21066],"300":[40.76751,-119.21343],"315":[40.7682,-119.2161],"330":[40.76914,-119.21862],"345":[40.77033,-119.22097],"360":[40.77174,-119.22308],"375":[40.77335,-119.22494],"390":[40.77513,-119.2265],"405":[40.77704,-119.22775],"420":[40.77907,-119.22865],"435":[40.78116,-119.2292],"450":[40.78329,-119.22938],"465":[40.78542,-119.22919],"480":[40.78752,-119.22864],"495":[40.78954,-119.22773],"510":[40.79145,-119.22648],"525":[40.7924,-119.22417],"540":[40.79483,-119.22304],"555":[40.79624,-119.22092],"570":[40.79679,-119.21766],"585":[40.79772,-119.21545],"600":[40.79792,-119.21409]}},"landmarks":{"The Man":[40.78327,-119.20782],"Center Camp":[40.77751,-119.21548]}};
 const hc=document.getElementById('hc'), hs=document.getElementById('hs');
 const pad=n=>String(n).padStart(2,'0');
@@ -1869,8 +1872,11 @@ function recompute(){
   evs.forEach(el=>{
     const la=el.dataset.lat, ln=el.dataset.lng, cell=el.querySelector('[data-walk-cell]');
     if(la&&ln){ const w=Math.round(hav(HOME,[+la,+ln])/80);
-      el.dataset.walk=w; if(cell) cell.textContent=w+' min walk' }
-    else { el.dataset.walk=99; if(cell) cell.textContent='walk n/a' }
+      const tb=Math.round(hav(HOME,[+la,+ln])/200);
+      el.dataset.walk=w; el.dataset.bike=tb;
+      if(cell) cell.innerHTML=w+' min walk <span class="sep">/</span> '+tb+' min bike' }
+    else { el.dataset.walk=99; el.dataset.bike=99;
+      if(cell) cell.textContent='distance n/a' }
   });
   apply();
 }
@@ -1882,6 +1888,16 @@ if(!localStorage.getItem('salonAddr')){
     const d=hav(HOME,GEO.table[s][m]); if(d<bd){bd=d;hc.value=m;hs.value=s}}
 }
 hc.onchange=hs.onchange=recompute;
+const md=document.getElementById('md');
+try{ MODE=localStorage.getItem('salonMode')||'walk'; md.value=MODE }catch(e){}
+const RANGE={walk:{min:5,max:35,step:5}, bike:{min:2,max:16,step:2}};
+function setRange(){ const r=RANGE[MODE], any=+slider.value>=+slider.max;
+ slider.min=r.min; slider.max=r.max; slider.step=r.step;
+ slider.value = any ? r.max : Math.min(Math.max(+slider.value,r.min), r.max); }
+md.onchange=()=>{ MODE=md.value;
+ try{localStorage.setItem('salonMode',MODE)}catch(e){}
+ setRange(); apply() };
+setRange();
 chips.forEach(c=>c.addEventListener('click',()=>{c.classList.toggle('on');apply()}));
 slider.addEventListener('input',apply); recompute();
 </script>

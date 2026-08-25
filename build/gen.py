@@ -51,7 +51,8 @@ for d,evs in days.items():
     for e in evs:
         clash = e['sh'] < running_end - 0.01
         running_end=max(running_end,e['sh']+e['dur'])
-        walk = f'{e["walk"]} min walk' if e['walk'] is not None else 'walk n/a'
+        walk = (f'{e["walk"]} min walk <span class="sep">/</span> {round(e["walk"]*80/200)} min bike'
+                if e['walk'] is not None else 'distance n/a')
         oneshot = '<span class="flag oneshot" title="This is the only time it runs all week">only showing</span>' if e['n_occ']==1 else ''
         clashf  = '<span class="flag clash" title="Starts before the previous listing ends">overlaps</span>' if clash else ''
         pt=f'''data-lat="{e['lat']}" data-lng="{e['lng']}"''' if e.get('lat') else ''
@@ -172,6 +173,7 @@ h1 em{font-style:normal;color:var(--accent);display:block}
  padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
 .loc{color:var(--ink2);font-weight:600}
 .walk{font-family:"SF Mono",ui-monospace,Menlo,monospace;text-transform:none;letter-spacing:0}
+.walk .sep{opacity:.4}
 .host{opacity:.75;text-transform:none;letter-spacing:0;font-style:italic;
  font-family:Charter,Palatino,Georgia,serif}
 .flag{padding:2px 7px;border-radius:2px;font-weight:600;letter-spacing:.07em}
@@ -194,13 +196,14 @@ function apply(){
   const on=new Set(chips.filter(c=>c.classList.contains('on')).map(c=>c.dataset.t));
   const max=+slider.value; out.textContent = max>=35?'any':max+' min';
   evs.forEach(e=>{
-    const w=+e.dataset.walk;
-    e.hidden = !on.has(e.dataset.themeName) || (max<35 && w!==99 && w>max);
+    const w=+(MODE==='bike'?e.dataset.bike:e.dataset.walk);
+    e.hidden = !on.has(e.dataset.themeName) || (max<999 && w!==99 && w>max);
   });
   document.querySelectorAll('.day').forEach(d=>{
     d.classList.toggle('empty', ![...d.querySelectorAll('.ev')].some(e=>!e.hidden));
   });
 }
+let MODE='walk';
 const GEO=__GEO__;
 const hc=document.getElementById('hc'), hs=document.getElementById('hs');
 const pad=n=>String(n).padStart(2,'0');
@@ -218,8 +221,11 @@ function recompute(){
   evs.forEach(el=>{
     const la=el.dataset.lat, ln=el.dataset.lng, cell=el.querySelector('[data-walk-cell]');
     if(la&&ln){ const w=Math.round(hav(HOME,[+la,+ln])/80);
-      el.dataset.walk=w; if(cell) cell.textContent=w+' min walk' }
-    else { el.dataset.walk=99; if(cell) cell.textContent='walk n/a' }
+      const tb=Math.round(hav(HOME,[+la,+ln])/200);
+      el.dataset.walk=w; el.dataset.bike=tb;
+      if(cell) cell.innerHTML=w+' min walk <span class="sep">/</span> '+tb+' min bike' }
+    else { el.dataset.walk=99; el.dataset.bike=99;
+      if(cell) cell.textContent='distance n/a' }
   });
   apply();
 }
@@ -231,6 +237,16 @@ if(!localStorage.getItem('salonAddr')){
     const d=hav(HOME,GEO.table[s][m]); if(d<bd){bd=d;hc.value=m;hs.value=s}}
 }
 hc.onchange=hs.onchange=recompute;
+const md=document.getElementById('md');
+try{ MODE=localStorage.getItem('salonMode')||'walk'; md.value=MODE }catch(e){}
+const RANGE={walk:{min:5,max:35,step:5}, bike:{min:2,max:16,step:2}};
+function setRange(){ const r=RANGE[MODE], any=+slider.value>=+slider.max;
+ slider.min=r.min; slider.max=r.max; slider.step=r.step;
+ slider.value = any ? r.max : Math.min(Math.max(+slider.value,r.min), r.max); }
+md.onchange=()=>{ MODE=md.value;
+ try{localStorage.setItem('salonMode',MODE)}catch(e){}
+ setRange(); apply() };
+setRange();
 chips.forEach(c=>c.addEventListener('click',()=>{c.classList.toggle('on');apply()}));
 slider.addEventListener('input',apply); recompute();
 '''
@@ -257,7 +273,8 @@ doc=f'''<title>Axis Mundi Salon</title>
  <nav class="navdays">{nav}</nav>
  <div class="filters">{chips}
   <label class="walkctl">your camp <select id="hc"></select><select id="hs"></select></label>
-  <label class="walkctl">walk under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
+  <label class="walkctl">by <select id="md"><option value="walk">walk</option><option value="bike">bike</option></select></label>
+  <label class="walkctl">under <input id="wk" type="range" min="5" max="35" step="5" value="35"><output id="wkv">any</output></label>
  </div>
 </div>
 

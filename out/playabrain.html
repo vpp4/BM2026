@@ -134,6 +134,9 @@ ol{list-style:none;margin:0;padding:0}
  letter-spacing:0;font-family:"SF Mono",ui-monospace,Menlo,monospace}
 .ctl select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .ctl label:has(select){gap:5px}
+.seg.sm{border-radius:3px;border:1px solid var(--line2);overflow:hidden}
+.seg.sm .sg{padding:3px 9px;font-size:11.5px}
+.mt .wk .sep{opacity:.4;margin:0 1px}
 .clr{margin-top:12px;cursor:pointer;font:inherit;font-size:11px;padding:6px 12px;border-radius:3px;
  border:1px solid var(--line2);background:transparent;color:var(--muted);letter-spacing:.1em;
  text-transform:uppercase;font-family:"Avenir Next Condensed","Arial Narrow",system-ui,sans-serif}
@@ -171,7 +174,8 @@ ol{list-style:none;margin:0;padding:0}
   <section class="ctl">
    <label>Hours<span class="v" id="tv"></span>
     <span class="rng"><input id="t0" type="range" min="0" max="23" value="0"><input id="t1" type="range" min="1" max="24" value="24"></span></label>
-   <label>Walk under<span class="v" id="wv">any</span>
+   <label>Travel by<span class="seg sm"><button class="sg on" id="mWalk" aria-pressed="true">walk</button><button class="sg" id="mBike" aria-pressed="false">bike</button></span></label>
+   <label>Under<span class="v" id="wv">any</span>
     <span class="rng"><input id="wk" type="range" min="5" max="99" step="5" value="99"></span></label>
    <label>Your camp<select id="hc" aria-label="clock position"></select><select id="hs" aria-label="street"></select></label>
   </section>
@@ -189,7 +193,7 @@ const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let home = LS('home') || [40.772262,-119.204136];
 let favs = new Set(LS('favs')||[]);
 const st = {q:'', tags:new Set(), day:-1, star:false, favOnly:false, now:false,
-            ver:false, guest:false, noWoo:false, music:false, t0:0, t1:1440, walk:99, limit:200};
+            ver:false, guest:false, noWoo:false, music:false, mode:'walk', t0:0, t1:1440, walk:99, limit:200};
 
 // flatten to occurrences once
 const OCC=[];
@@ -197,8 +201,14 @@ D.ev.forEach((e,i)=>e.o.forEach(o=>OCC.push({e,i,d:o[0],s:o[1],x:o[2]})));
 const hav=(a,b)=>{const R=6371e3,r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,
  dp=p2-p1,dl=(b[1]-a[1])*r,h=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;
  return 2*R*Math.asin(Math.sqrt(h))};
-function walkOf(e){ if(!e.p) return null; if(e._w!==undefined&&e._h===home) return e._w;
- e._h=home; e._w=Math.round(hav(home,e.p)/80); return e._w }
+// 80 m/min on foot. 200 m/min (12 km/h) on an e-bike — deliberately below a
+// bike's flat-ground speed: playa dust is soft, and you brake for crowds,
+// art cars and whiteouts.
+const SPEED={walk:80, bike:200};
+function metresOf(e){ if(!e.p) return null;
+ if(e._m!==undefined && e._h===home) return e._m;
+ e._h=home; e._m=hav(home,e.p); return e._m }
+const mins=(m,mode)=>m===null?null:Math.round(m/SPEED[mode]);
 const pad=n=>String(n).padStart(2,'0');
 const hm=m=>pad(Math.floor(m/60)%24)+':'+pad(m%60);
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -216,7 +226,7 @@ function match(o){
  if(st.favOnly && !favs.has(e.t)) return false;
  if(st.day>=0 && o.d!==st.day) return false;
  if(o.s<st.t0 || o.s>st.t1) return false;
- if(st.walk<99){ const w=walkOf(e); if(w!==null && w>st.walk) return false }
+ if(st.walk<99){ const t=mins(metresOf(e),st.mode); if(t!==null && t>st.walk) return false }
  if(st.tags.size && !e.g.some(g=>st.tags.has(g))) return false;
  if(st.now){ const n=nowRef(); if(n.d<0) return false;
    if(o.d!==n.d || o.x<n.m || o.s>n.m+180) return false }
@@ -236,14 +246,15 @@ function render(){
   if(o.d!==lastDay){ lastDay=o.d;
    const dt=new Date(DAYS[o.d]+'T12:00:00');
    h+='<li class="dayhd">'+DN[dt.getDay()]+' &middot; '+DAYS[o.d]+'</li>' }
-  const w=walkOf(e);
+  const m=metresOf(e), tw=mins(m,'walk'), tb=mins(m,'bike');
   h+='<li class="ev">'+
    '<div class="wh"><b>'+hm(o.s)+'</b><span>'+hm(o.x)+'</span></div><div>'+
    '<p class="tt">'+esc(e.t)+'</p>'+
    (e.d?'<p class="dd">'+esc(e.d)+'</p>':'')+
    '<p class="mt"><span class="cat">'+esc(CATS[e.c])+'</span>'+
    (e.l?'<span class="lo">'+esc(e.l)+'</span>':'')+
-   (w!==null?'<span class="wk">'+w+' min walk</span>':'<span class="wk">walk n/a</span>')+
+   (m!==null?'<span class="wk">'+tw+'&thinsp;min walk <span class="sep">/</span> '
+     +tb+'&thinsp;min bike</span>':'<span class="wk">distance n/a</span>')+
    (e.v?'<span class="one vf">verified</span>':'')+
    (e.u?'<span class="one ug">guest?</span>':'')+
    (e.w?'<span class="one wo">woo</span>':'')+
@@ -303,8 +314,24 @@ function times(){
  st.t0=a*60; st.t1=b*60;
  $('tv').textContent=pad(a)+':00–'+pad(b)+':00'; reset()}
 t0.oninput=t1.oninput=times;
-wk.oninput=()=>{st.walk=+wk.value;
- $('wv').textContent = st.walk>=99?'any':st.walk+' min'; reset()};
+function walkLabel(){ $('wv').textContent =
+ st.walk>=99 ? 'anywhere' : st.walk+' min '+(st.mode==='bike'?'ride':'walk') }
+wk.oninput=()=>{st.walk = +wk.value >= +wk.max ? 99 : +wk.value; walkLabel(); reset()};
+$('mWalk').onclick=()=>setMode('walk'); $('mBike').onclick=()=>setMode('bike');
+// An e-bike collapses BRC: the furthest thing in the dataset is a 37-min walk
+// but a 15-min ride. A 5-99 min slider would pass everything in bike mode, so
+// the range tightens to stay useful.
+const RANGE={walk:{min:5,max:99,step:5}, bike:{min:2,max:20,step:2}};
+function setMode(m){ st.mode=m;
+ const r=RANGE[m], was=+wk.value, wasAny=was>=+wk.max;
+ wk.min=r.min; wk.max=r.max; wk.step=r.step;
+ wk.value = wasAny ? r.max : Math.min(Math.max(was,r.min), r.max);
+ st.walk = +wk.value >= r.max ? 99 : +wk.value;
+ $('mWalk').classList.toggle('on',m==='walk'); $('mBike').classList.toggle('on',m==='bike');
+ $('mWalk').setAttribute('aria-pressed',m==='walk');
+ $('mBike').setAttribute('aria-pressed',m==='bike');
+ SV('mode',m); walkLabel(); reset() }
+setMode(LS('mode')||'walk');
 // address picker — nobody knows their lat/lng, everybody knows "4:00 & E"
 const GEO=D.geo, hc=$('hc'), hs=$('hs');
 const CLOCKS=[]; for(let m=120;m<=600;m+=15) CLOCKS.push(m);

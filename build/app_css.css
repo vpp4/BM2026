@@ -131,6 +131,9 @@ ol{list-style:none;margin:0;padding:0}
  letter-spacing:0;font-family:"SF Mono",ui-monospace,Menlo,monospace}
 .ctl select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .ctl label:has(select){gap:5px}
+.seg.sm{border-radius:3px;border:1px solid var(--line2);overflow:hidden}
+.seg.sm .sg{padding:3px 9px;font-size:11.5px}
+.mt .wk .sep{opacity:.4;margin:0 1px}
 .clr{margin-top:12px;cursor:pointer;font:inherit;font-size:11px;padding:6px 12px;border-radius:3px;
  border:1px solid var(--line2);background:transparent;color:var(--muted);letter-spacing:.1em;
  text-transform:uppercase;font-family:"Avenir Next Condensed","Arial Narrow",system-ui,sans-serif}

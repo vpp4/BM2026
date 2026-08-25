@@ -55,7 +55,8 @@ HEAD = '''<title>Playa Brain</title>
   <section class="ctl">
    <label>Hours<span class="v" id="tv"></span>
     <span class="rng"><input id="t0" type="range" min="0" max="23" value="0"><input id="t1" type="range" min="1" max="24" value="24"></span></label>
-   <label>Walk under<span class="v" id="wv">any</span>
+   <label>Travel by<span class="seg sm"><button class="sg on" id="mWalk" aria-pressed="true">walk</button><button class="sg" id="mBike" aria-pressed="false">bike</button></span></label>
+   <label>Under<span class="v" id="wv">any</span>
     <span class="rng"><input id="wk" type="range" min="5" max="99" step="5" value="99"></span></label>
    <label>Your camp<select id="hc" aria-label="clock position"></select><select id="hs" aria-label="street"></select></label>
   </section>

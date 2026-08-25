@@ -71,7 +71,23 @@ day by day, with free-window bars and overlap flags.
 - Art `location` is sometimes `null` (unplaced pieces, mutant vehicles); only 330 of 823
   have GPS.
 
-Distances assume 80 m/min walking from the centroid of 4:00 & E
+## Travel times
+
+Both pages show walk **and** e-bike time, and the distance filter follows
+whichever mode is selected.
+
+    walk  80 m/min   (4.8 km/h)
+    bike 200 m/min   (12 km/h)
+
+200 m/min is deliberately well under a bike's flat-ground speed: playa dust is
+soft, and you brake constantly for crowds, art cars and whiteouts.
+
+A bike collapses the city. The furthest thing in the dataset is a **37-minute
+walk but a 15-minute ride**, so a 5-99 min slider would pass everything in bike
+mode. The slider range therefore changes with the mode (walk 5-99, bike 2-20),
+clamping the current value rather than resetting it.
+
+Distances assume walking from the centroid of 4:00 & E
 (40.772262, -119.204136). Change `HOME` in `curate.py`, or just edit it live in the app.
 
 ## Music
