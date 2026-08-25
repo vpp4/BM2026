@@ -125,6 +125,24 @@ not just the event text.
     "Dream Steam Espresso Machine" is steamed milk.
   - `\bsteam\b`, not `steam bath` — Illumination Village's event is called
     "The Steam Sanctuary". The boundary keeps "Hot Steamy Bao" (food) out.
+### Time-of-day bands
+
+`sunrise · breakfast · lunch · dinner · late night` are presets over the hours
+filter, and they classify by **occurrence start time, never by the title** — a
+"brunch" listed at 6pm is dinner. The bands come from the data: the meal
+histogram is cleanly trimodal (breakfast 09-11, lunch 11-13, dinner 17-19).
+
+    sunrise    05:00-09:00   (nests inside breakfast)
+    breakfast  06:00-11:00
+    lunch      11:00-16:00
+    dinner     16:00-21:00
+    late night 21:00-05:00   (wraps past midnight)
+
+Band ends are **exclusive**, so a 16:00 start belongs to dinner alone rather
+than to both lunch and dinner. breakfast+lunch+dinner+late covers 268 of 268
+meal occurrences with no double-counting. Dragging an hours slider clears the
+preset.
+
 - **Beauty & grooming** (125) — a wide net (massage, salon, nails, paint,
   glitter, costume). A browse aid, not a shortlist.
 

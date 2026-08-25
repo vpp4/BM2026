@@ -6,7 +6,7 @@ const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let home = LS('home') || [40.772262,-119.204136];
 let favs = new Set(LS('favs')||[]);
 const st = {q:'', tags:new Set(), day:-1, star:false, favOnly:false, now:false,
-            ver:false, guest:false, noWoo:false, music:false, mode:'walk', t0:0, t1:1440, walk:99, limit:200};
+            ver:false, guest:false, noWoo:false, music:false, mode:'walk', band:null, t0:0, t1:1440, walk:99, limit:200};
 
 // flatten to occurrences once
 const OCC=[];
@@ -38,7 +38,11 @@ function match(o){
  if(st.noWoo && e.w) return false;
  if(st.favOnly && !favs.has(e.t)) return false;
  if(st.day>=0 && o.d!==st.day) return false;
- if(o.s<st.t0 || o.s>st.t1) return false;
+ // End is EXCLUSIVE, so adjacent bands can't both claim a 16:00 start.
+ // t0 > t1 means the window wraps past midnight (late night).
+ const inHrs = st.t0<=st.t1 ? (o.s>=st.t0 && o.s<st.t1)
+                            : (o.s>=st.t0 || o.s<st.t1);
+ if(!inHrs) return false;
  if(st.walk<99){ const t=mins(metresOf(e),st.mode); if(t!==null && t>st.walk) return false }
  if(st.tags.size && !e.g.some(g=>st.tags.has(g))) return false;
  if(st.now){ const n=nowRef(); if(n.d<0) return false;
@@ -122,6 +126,8 @@ $('bAdv').onclick=()=>{
 
 const t0=$('t0'),t1=$('t1'),wk=$('wk'),hi=$('hm');
 function times(){
+ if(st.band && this && this.tagName){ st.band=null;
+   document.querySelectorAll('[data-band]').forEach(x=>x.classList.remove('on')) }
  let a=+t0.value,b=+t1.value;
  if(a>=b){ if(this===t1) a=b-1; else b=a+1; t0.value=a; t1.value=b }  // keep the pair ordered
  st.t0=a*60; st.t1=b*60;
@@ -167,12 +173,31 @@ else{ // start on whatever address is closest to the built-in default
 }
 hc.onchange=hs.onchange=()=>applyHome(true);
 
+// Meal bands come from the DATA, not from the words: the meal histogram is
+// cleanly trimodal (breakfast 09-11, lunch 11-13, dinner 17-19). A "brunch"
+// listed at 6pm is dinner, so start time decides, never the title.
+const BANDS={sunrise:[5,9], breakfast:[6,11], lunch:[11,16], dinner:[16,21], late:[21,5]};
+function setBand(k){
+ st.band = st.band===k ? null : k;
+ document.querySelectorAll('[data-band]').forEach(b=>
+   b.classList.toggle('on', b.dataset.band===st.band));
+ if(st.band){ const [a,b]=BANDS[st.band]; st.t0=a*60; st.t1=b*60;
+   t0.value=a; t1.value=Math.max(b,a===b?a+1:b);
+   $('tv').textContent=pad(a)+':00–'+pad(b)+':00'+(b<a?' +1':''); }
+ else { st.t0=+t0.value*60; st.t1=+t1.value*60; times(); }
+ reset();
+}
+document.querySelectorAll('[data-band]').forEach(b=>
+ b.onclick=()=>setBand(b.dataset.band));
+
 function badge(){
  const n = st.tags.size + TOGS.filter(([,k])=>st[k]).length
-         + (st.walk<99?1:0) + ((st.t0>0||st.t1<1440)?1:0);
+         + (st.walk<99?1:0) + (st.band?1:0)
+         + (!st.band && (st.t0>0||st.t1<1440) ? 1:0);
  const el=$('fc'); el.textContent=n; el.hidden=!n}
 
 $('clr').onclick=()=>{
+ st.band=null; document.querySelectorAll('[data-band]').forEach(b=>b.classList.remove('on'));
  st.tags.clear(); TOGS.forEach(([id,k])=>{st[k]=false;$(id).classList.remove('on')});
  document.querySelectorAll('[data-tag]').forEach(b=>b.classList.remove('on'));
  t0.value=0; t1.value=24; wk.value=99; times(); wk.oninput()};

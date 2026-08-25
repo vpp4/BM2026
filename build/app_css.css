@@ -37,6 +37,7 @@ h1 b{color:var(--accent)}
 .tb.gst.on{background:var(--warn);border-color:var(--warn);color:#fff}
 .tb.nw.on{background:var(--bad);border-color:var(--bad);color:#fff}
 .tb.mus.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tb.bnd.on{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 .tb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 

@@ -52,6 +52,13 @@ HEAD = '''<title>Playa Brain</title>
   <section><h3>Hide</h3><div class="chips">
    <button class="tb nw" id="bWoo" title="Hide pseudo-science">pseudo-science</button>
   </div></section>
+  <section><h3>Time of day</h3><div class="chips">
+   <button class="tb bnd" data-band="sunrise">sunrise</button>
+   <button class="tb bnd" data-band="breakfast">breakfast</button>
+   <button class="tb bnd" data-band="lunch">lunch</button>
+   <button class="tb bnd" data-band="dinner">dinner</button>
+   <button class="tb bnd" data-band="late">late night</button>
+  </div></section>
   <section class="ctl">
    <label>Hours<span class="v" id="tv"></span>
     <span class="rng"><input id="t0" type="range" min="0" max="23" value="0"><input id="t1" type="range" min="1" max="24" value="24"></span></label>
