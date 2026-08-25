@@ -1,0 +1,20 @@
+# Build artifacts — all regenerable, see README.md for the pipeline order.
+# brc2026.db rebuilds from data/ in seconds; the rest are intermediates that
+# get inlined into out/playabrain.html anyway.
+brc2026.db
+build/payload.json
+build/candidates.json
+build/schedule.json
+build/missed.txt
+
+.DS_Store
+*.pyc
+__pycache__/
+
+# Built pages — regenerate with `python3 build/gen.py && python3 build/assemble.py`.
+# Kept out of the repo because playabrain.html inlines the full DJ lineup, which
+# is pre-release: api.dust.events still serves an empty rsl.json in production.
+out/
+
+# Same reason — the pre-release lineup itself. fetch.py pulls it on demand.
+data/bm_rsl.json
