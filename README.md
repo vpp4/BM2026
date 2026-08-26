@@ -150,3 +150,27 @@ preset.
 the camp description, which tagged all 24 of Nobo House's events — outdoor gym
 and sunset DJ sets included — because the camp happens to have a sauna. That
 was 47 of 66 shower tags and 248 of 373 beauty tags.
+
+## Official Burning Man API (optional)
+
+Dust is a downstream consumer. The official API at `api.burningman.org` adds:
+
+- `print_description` on events — Dust ships one description field; the ~190
+  char cap is what limits every text-derived tag in this repo
+- `/api/mv` — mutant vehicles, absent from Dust entirely
+- `year`, back to **2009** for events, 2015 for art. The only way to tell which
+  camps actually show up and deliver year after year.
+- `contact_email` on camps, and structured `location` (`intersection`,
+  `dimensions`, `exact_location`, `frontage`)
+
+Request a key at https://api.burningman.org/request, then:
+
+    cp .env.example .env     # paste your key in
+    chmod 600 .env
+    python3 build/bmapi.py           # reports what it adds over data/
+    python3 build/bmapi.py --pull    # writes data/bm_api_*.json
+
+**`.env` is gitignored and this repo is public.** So is `data/bm_api_*.json` —
+the Burning Man API Terms of Service govern redistribution, and bulk official
+output is a different matter from Dust's already-public feeds. Read the ToS
+before committing any of it.
