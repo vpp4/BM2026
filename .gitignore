@@ -18,3 +18,11 @@ __pycache__/
 # returns []), and fetch.py pulls it on demand anyway. playabrain.html embeds
 # the parts of it people actually need.
 data/bm_rsl.json
+
+# Secrets. This repo is PUBLIC — never commit a key.
+.env
+.env.*
+!.env.example
+# Bulk official-API output: the Burning Man API Terms of Service govern
+# redistribution, so keep it local until you've read them.
+data/bm_api_*.json
